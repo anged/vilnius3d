@@ -1,0 +1,33 @@
+{
+    "users": [
+        {
+            "id": 1
+        }
+    ],
+    "mapScenes": [
+        {
+            "id": 1,
+            "Title": "3D Vilnius",
+            "Description": "Vilniaus 3D bendrasis žemėlapis",
+            "Production": 1,
+            "SceneUrl": "http://www.arcgis.com/apps/MapSeries/index.html?appid=9bdf923acf7a4cacb3fd1aea6b01be73",
+            "Content": null,
+            "created_at": 1561033911592,
+            "updated_at": 1561036218609,
+            "Foto": {
+                "id": 1,
+                "name": "feel_like_youre_not_enough_1200x627.jpg",
+                "hash": "04b3f2accc5a42f186957012e020fe0b",
+                "sha256": "DJLL-TBzKr98DNxUUOXPAgSdcyEMehjvEwobsRl9HkQ",
+                "ext": ".jpg",
+                "mime": "image/jpeg",
+                "size": "34.86",
+                "url": "/uploads/04b3f2accc5a42f186957012e020fe0b.jpg",
+                "provider": "local",
+                "public_id": null,
+                "created_at": 1561036218663,
+                "updated_at": 1561036218718
+            }
+        }
+    ]
+}

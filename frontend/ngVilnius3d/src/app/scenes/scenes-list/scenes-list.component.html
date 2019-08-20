@@ -1,0 +1,16 @@
+<accordion class="accordion--main" [isAnimated]="true" [closeOthers]="true">
+    <ng-container *ngFor="let scene of scenes$ | async">
+        <div style="background-image: url(./assets/img/bendras-zemelapis.jpg)">
+            <accordion-group [heading]="scene.title" [isOpen]="scenesRoutingService.slug === scene.slug">
+                <p>
+                    {{ scene.description }}
+                </p>
+                <div class="accordion__button">
+                    <a [routerLink]="['/', scene.slug]" routerLinkActive="active">
+                        <button type="button" class="btn btn-primary btn-lg">Žiūrėti</button>
+                    </a>
+                </div>
+            </accordion-group>
+        </div>
+    </ng-container>
+</accordion>

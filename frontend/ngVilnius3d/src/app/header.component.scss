@@ -1,0 +1,27 @@
+h1 {
+    color: #e72d34;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: -1px;
+}
+
+.header {
+    &__logo {
+        display: inline-block;
+        // background: #e61c24ed;
+        height: 100px;
+        width: 110px;
+        // margin: 10px;
+    }
+
+    &__img {
+        padding: 20px 10px 10px 20px;
+        width: 100px;
+    }
+
+    &__title {
+        width: calc(100% - 120px) !important;
+        float: right;
+        padding: 25px 0px 0;
+    }
+}

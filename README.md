@@ -1,2 +1,2 @@
 # vilnius3d
-www.3d.vilius.lt
+www.3d.vilnius.lt

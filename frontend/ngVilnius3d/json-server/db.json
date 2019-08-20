@@ -7,14 +7,39 @@
     "mapScenes": [
         {
             "id": 1,
-            "Title": "3D Vilnius",
-            "Description": "Vilniaus 3D bendrasis žemėlapis",
-            "Production": 1,
-            "SceneUrl": "http://www.arcgis.com/apps/MapSeries/index.html?appid=9bdf923acf7a4cacb3fd1aea6b01be73",
-            "Content": null,
+            "title": "Bendrojo plano 3d žemėlapis",
+            "slug": "bendrojo-plano-3d-zemelapis",
+            "description": "Vilniaus miesto savivaldybės teritorijos bendrasis planas nurodo miesto teritorinės plėtros gaires planuojamam laikotarpiui. Jis aiškiai nubrėžia Vilniaus miesto plėtros kryptis ir prioritetus.",
+            "production": 1,
+            "sceneUrl": "https://vplanas.maps.arcgis.com/home/webscene/viewer.html?webscene=82b7ddc28e174e9da4b3cd6c157109e6",
+            "content": null,
             "created_at": 1561033911592,
             "updated_at": 1561036218609,
-            "Foto": {
+            "photo": {
+                "id": 1,
+                "name": "feel_like_youre_not_enough_1200x627.jpg",
+                "hash": "04b3f2accc5a42f186957012e020fe0b",
+                "sha256": "DJLL-TBzKr98DNxUUOXPAgSdcyEMehjvEwobsRl9HkQ",
+                "ext": ".jpg",
+                "mime": "image/jpeg",
+                "size": "34.86",
+                "url": "/uploads/04b3f2accc5a42f186957012e020fe0b.jpg",
+                "provider": "local",
+                "public_id": null,
+                "created_at": 1561036218663,
+                "updated_at": 1561036218718
+            }
+        }, {
+            "id": 2,
+            "title": "Apšvietimo 3d žemėlapis",
+            "slug": "apsvietimo-3d-zemelapis",
+            "description": "Vilniaus miesto savivaldybės apšvietimo žemėlapis nurodo miesto apšvietimo planus.",
+            "production": 1,
+            "sceneUrl": "https://atviras.vplanas.lt/portal/home/webscene/viewer.html?webscene=6089a574d8c647419a631715241d9f0a",
+            "content": null,
+            "created_at": 1561033911592,
+            "updated_at": 1561036218609,
+            "photo": {
                 "id": 1,
                 "name": "feel_like_youre_not_enough_1200x627.jpg",
                 "hash": "04b3f2accc5a42f186957012e020fe0b",

@@ -1,0 +1,44 @@
+@import 'variables';
+@import 'blocker';
+@import 'hburgers';
+@import '~bootstrap/scss/bootstrap';
+
+// Global
+
+.btn-link {
+    font-weight: $font-weight-normal;
+    color: $btn-link-color;
+    text-decoration: $link-decoration;
+  
+    @include hover {
+      color: $button-link-hover-color;
+      text-decoration: none;
+    }
+  
+    &:focus,
+    &.focus {
+      text-decoration: none;
+      box-shadow: none;
+    }
+  
+    &:disabled,
+    &.disabled {
+      color: $btn-link-disabled-color;
+      pointer-events: none;
+    }
+  
+  }
+  
+  .card {
+      background: none;
+      overflow: hidden;
+  }
+
+  .card-header {
+    background-color: rgba(0, 0, 0, 0.35);
+  }
+
+  .panel-heading .btn {
+    padding-left: 0;
+    padding-right: 0;
+  }

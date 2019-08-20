@@ -1,0 +1,18 @@
+.sidebar--left {
+    width: 300px;
+    min-height: 100vh;
+    background-color: rgba(237, 237, 237, 0.30);
+    float: left;
+}
+
+nav {
+    position: absolute;
+    z-index: 1000;
+}
+
+.scene__container {
+    width: calc(100% - 300px);
+    position: absolute;
+    right: 0;
+    top: 0;
+}

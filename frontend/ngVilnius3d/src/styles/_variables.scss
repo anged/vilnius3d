@@ -1,0 +1,16 @@
+// Override bootstrap variables
+
+$theme-colors: (
+  "primary": #e72d34,
+  "danger": #ff4136
+);
+
+$border-radius:               .25rem !default;
+$border-radius-lg:            .3rem !default;
+$border-radius-sm:            .2rem !default;
+
+// New variables
+$white: #fff; 
+$margin-top: 1rem;
+$btn-link-color: $white;
+$button-link-hover-color: $white;

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ export class UserService {
   private isAuthenticatedSubject = new ReplaySubject<boolean>();
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private ngZone: NgZone) {
     // TEMP pass value
     this.isAuthenticatedSubject.next(false);
 
@@ -31,8 +31,7 @@ export class UserService {
     this.oAuth2Instance = gapi.auth2.getAuthInstance();
     this.oAuth2Instance.signIn().then((s)=> {
       this.isAuthenticatedSubject.next(true);
-      this.router.navigate(['/admin']);
-
+      this.ngZone.run(() => this.router.navigate(['/admin']))
       console.log('Success', s)
     });
   }
@@ -42,7 +41,7 @@ export class UserService {
     this.oAuth2Instance.disconnect();
     oAuth2Instance.signOut().then(() => {
       this.isAuthenticatedSubject.next(false);
-      this.router.navigate(['/admin']);
+      this.ngZone.run(() => this.router.navigate(['/admin']))
     });
   }
 }

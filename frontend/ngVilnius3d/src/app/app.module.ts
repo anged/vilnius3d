@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { ScenesModule } from './scenes/scenes.module';
 
 import { SharedModule } from './shared/shared.module';
+import { AdminModule } from './admin/admin.module';
+import { AuthModule } from './auth/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     ScenesModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    AdminModule,
+    AuthModule
     
   ],
   providers: [],

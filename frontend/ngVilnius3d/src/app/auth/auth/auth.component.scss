@@ -1,0 +1,15 @@
+@import '~src/styles/variables';
+
+p {
+    text-align: center;
+}
+
+.auth__login {
+    border: 1px solid #d4d4d4;
+    display: inline-block;
+    height: 45px;
+    overflow: hidden;
+    padding: 0 10px;
+    border-radius: $border-radius;
+    cursor: pointer;
+}

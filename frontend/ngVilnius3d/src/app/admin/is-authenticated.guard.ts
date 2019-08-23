@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from '../../services/user.service';
-import { map, take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class IsNotAuthenticatedGuard implements CanActivate {
+export class IsAuthenticatedGuard implements CanActivate {
   constructor(private userService: UserService, private router: Router) { }
 
   canActivate(
@@ -15,17 +15,9 @@ export class IsNotAuthenticatedGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     return this.userService.isAuthenticated$.pipe(
-      take(1),
-      // Can activate if user is not authenticated
-      map(isAuth => {
-        console.log('guard', isAuth)
-        if (isAuth) {
-          this.router.navigate(['/admin/dashboard']);
-        }
-
-        return !isAuth;
-      })
-    )
+      tap(a => console.log('Auth Guard', a)),
+      take(1)
+      );
   }
 
   

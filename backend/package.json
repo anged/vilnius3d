@@ -1,0 +1,31 @@
+{
+  "name": "vilnius3d",
+  "version": "1.0.0",
+  "description": "Vilnius 3D scenes application",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "colors": "^1.3.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "passport": "^0.4.0",
+    "passport-google-token": "^0.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mevplanas/vilnius3d.git"
+  },
+  "author": "A. Geduska",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mevplanas/vilnius3d/issues"
+  },
+  "homepage": "https://github.com/mevplanas/vilnius3d#readme"
+}

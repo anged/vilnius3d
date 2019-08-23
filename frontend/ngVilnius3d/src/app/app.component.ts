@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'v3d-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ngVilnius3d';
+
+  constructor(private userService: UserService) { }
+
+  ngOnInit() {
+    this.userService.populate();
+  }
 }

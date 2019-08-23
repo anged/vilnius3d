@@ -1,0 +1,27 @@
+<h4>Meniu</h4>
+
+<nav>
+    <div class="sidebar">
+        <div class="sidebar__item">
+            <a class="" [routerLink]="[ '/admin/dashboard/scenes' ]" routerLinkActive="active">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path [attr.d]="scenesIcon" />
+                </svg><span>Scenos</span></a></div>
+        <div class="sidebar__item">
+            <a class="" [routerLink]="[ '/admin/dashboard/users' ]" routerLinkActive="active">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path [attr.d]="usersIcon" />
+                </svg><span>Vartotojai</span></a></div>
+        <div class="sidebar__item">
+            <a class="" [routerLink]="[ '/admin/dashboard/profile' ]" routerLinkActive="active">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path [attr.d]="userIcon" />
+                </svg><span>Profilis</span></a></div>
+    </div>
+</nav>
+
+<div class="add-scene">
+    <a routerLink="/admin" class="btn btn-label-brand btn-upper btn-bold">
+        + Pridėti sceną
+    </a>
+</div>

@@ -20,4 +20,11 @@ export class ApiService {
       catchError(this.formatErrors)
     )
   }
+
+  getExpress(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+    return this.http.get(`${environment.urlExpress}${path}`, { params }).pipe(
+      catchError(this.formatErrors)
+    )
+  }
+
 }

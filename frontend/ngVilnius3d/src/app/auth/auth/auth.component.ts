@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
+  date = new Date().getFullYear();
 
   constructor(private userService: UserService) { }
 

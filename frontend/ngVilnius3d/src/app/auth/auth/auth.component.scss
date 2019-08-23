@@ -1,15 +1,40 @@
 @import '~src/styles/variables';
 
+:host {
+    display: block;
+    text-align: center;
+    transform: translate(50%, -50%);
+    position: absolute;
+    top: 50%;
+    right: 50%;
+}
+
+.admin__logo img {
+    background-color: $red;
+    padding: 12px;
+    border-radius: $border-radius-lg;
+}
+
+h1 {
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: #48465b;
+}
+
 p {
     text-align: center;
 }
 
 .auth__login {
-    border: 1px solid #d4d4d4;
+    border: 1px solid #c5c5c5;
     display: inline-block;
     height: 45px;
     overflow: hidden;
     padding: 0 10px;
     border-radius: $border-radius;
     cursor: pointer;
+
+    &:hover {
+        border-color: #888383;
+    }
 }

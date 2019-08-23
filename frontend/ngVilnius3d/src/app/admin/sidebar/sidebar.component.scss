@@ -1,0 +1,43 @@
+h4 {
+    margin-bottom: 2.5rem;
+}
+
+.sidebar {
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        margin: 1rem 0;
+
+        a {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #48465b;
+            transition: all 0.3s;
+        }
+
+        .active span {
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ed5e68;
+        }
+
+        svg {
+            margin-right: 1rem;
+            fill: #ed5e68;
+        }
+    }
+}
+
+.add-scene {
+    margin-top: 2.5rem;
+
+    .btn {
+        background-color: #e82b35;
+        align-self: center;
+        font-weight: 500;
+        font-size: 0.875rem;
+        color: #fff;
+
+    }
+}

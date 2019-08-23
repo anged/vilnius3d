@@ -1,0 +1,36 @@
+a {
+    color: #595d6e;
+}
+
+svg {
+    fill: #ed5e68;
+}
+
+.scenes__header {
+    margin-top: 2rem;
+    color: #74788d;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.725rem;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 1px;
+}
+
+.scene-lists {
+    margin-top: 1rem;
+    font-weight: 500;
+    vertical-align: middle;
+    font-size: 0.925rem;
+    color: #595d6e;
+
+    &__item {
+        margin-bottom: 1rem;
+    }
+
+    img {
+        width: 100%;
+        border-radius: 30px;
+    }
+
+}
+

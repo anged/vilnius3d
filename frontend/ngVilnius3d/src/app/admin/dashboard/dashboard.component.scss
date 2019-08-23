@@ -1,0 +1,22 @@
+h3 {
+    padding: 0 0.35rem 0 0;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #959cb6;
+    transition: all 0.3s;
+}
+
+svg {
+    fill: #959cb6;
+}
+
+.dashboard {
+
+    &__panel {
+        margin-bottom: 2rem;
+    }
+
+    &__arrow {
+        padding-top: 5px;
+    }
+}

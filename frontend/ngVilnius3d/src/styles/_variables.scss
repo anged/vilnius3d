@@ -1,13 +1,16 @@
 // Override bootstrap variables
 
+$red: #e72d34;
+
 $theme-colors: (
-  "primary": #e72d34,
+  "primary": $red,
   "danger": #ff4136
 );
 
 $border-radius:               .25rem !default;
-$border-radius-lg:            .3rem !default;
 $border-radius-sm:            .2rem !default;
+$border-radius-lg:            .3rem !default;
+$border-radius-xl:            .8rem !default;
 
 // New variables
 $white: #fff; 

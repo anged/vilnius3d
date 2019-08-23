@@ -1,0 +1,38 @@
+nav {
+    box-shadow: 1px 1px 40px 0px rgba(77, 78, 82, 0.29);
+    min-height: 70px;
+    margin-bottom: 2.5rem;
+}
+
+.nav {
+    &__logo img {
+        height: 70px;
+        padding: 12px;
+    }
+
+    &__user-picture img {
+        border-radius: 30%;
+        // Add height
+        // We using https://developers.google.com/people/image-sizing though
+        height: 40px;
+    }
+
+    &__user-name {
+        align-self: center;
+        padding: 0 0.55rem 0 0;
+        font-weight: 500;
+        font-size: 1rem;
+        color: #6c7293;
+    }
+
+}
+
+.btn {
+    border-color: #e82b35;
+    align-self: center;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: #6c7293;
+
+    &:hover { cursor: pointer; }
+}

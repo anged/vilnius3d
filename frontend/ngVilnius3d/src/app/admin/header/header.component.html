@@ -1,2 +1,51 @@
-<a routerLink="/login">Login</a>
-<button (click)="logout()">Logout</button>
+<nav class="navbar bg-light flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" [routerLink]="[ '/' ]">
+        <div class="nav__logo">
+            <img class="header__img" src="./assets/logo.svg" alt="logo"> <span class="nav__title">3D</span>
+        </div>
+    </a>
+
+    <ng-container *ngIf="(isAuthed$ | async)">
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+            <li class="nav-item dropdown">
+                <div dropdown>
+                    <a class="nav-item nav-link dropdown-toggle mr-md-2" id="bd-versions" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" dropdownToggle>
+                        <ng-container *ngIf="(currentUser$ | async) as user">
+                            <span class="nav__user-picture">
+                                <span class="nav__user-name">{{ user.name }}</span> <img [src]="user?.img + '=s40-c'"
+                                    alt="profile">
+                            </span>
+                        </ng-container>
+                    </a>
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                        aria-labelledby="button-basic">
+                        <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                        <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                        <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li class="divider dropdown-divider"></li>
+                        <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+        </ul>
+    </ng-container>
+
+
+
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <ng-container *ngIf="!(isAuthed$ | async); else logOut">
+                <a class="btn btn-label-brand btn-upper btn-bold" routerLink="/login">Login</a>
+            </ng-container>
+
+
+
+            <ng-template #logOut>
+                <a class="btn btn-label-brand btn-upper btn-bold" (click)="logout()">Atsijungti</a>
+            </ng-template>
+        </li>
+    </ul>
+</nav>

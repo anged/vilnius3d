@@ -13,6 +13,10 @@ a:hover {
   text-decoration: none;
 }
 
+.navbar-nav .dropdown-menu {
+  position: absolute;
+}
+
 .btn-link {
     font-weight: $font-weight-normal;
     color: $btn-link-color;
@@ -37,18 +41,32 @@ a:hover {
       pointer-events: none;
     }
   
-  }
+}
   
-  .card {
-      background: none;
-      overflow: hidden;
-  }
+.card {
+    background: none;
+    overflow: hidden;
+}
 
-  .card-header {
-    background-color: rgba(0, 0, 0, 0.35);
-  }
+.card-header {
+  background-color: rgba(0, 0, 0, 0.35);
+}
 
-  .panel-heading .btn {
-    padding-left: 0;
-    padding-right: 0;
-  }
+.panel-heading .btn {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Breacrumb
+.breadcrumb {
+  background: none;
+}
+.breadcrumb-item::before {
+  display: none;
+  content: none;
+}
+
+.breadcrumb-item {
+  padding-left: 0;
+  padding-right: 0.5rem;
+}

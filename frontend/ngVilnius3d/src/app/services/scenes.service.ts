@@ -25,4 +25,5 @@ export class ScenesService {
       map(scenes => scenes.filter(sceneSingle => sceneSingle.slug === slug)[0])
     )
   }
+  
 }

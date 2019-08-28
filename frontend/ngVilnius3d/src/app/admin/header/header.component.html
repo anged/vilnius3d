@@ -18,13 +18,11 @@
                             </span>
                         </ng-container>
                     </a>
-                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
                         aria-labelledby="button-basic">
-                        <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-                        <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-                        <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-                        <li class="divider dropdown-divider"></li>
-                        <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+                        <li role="menuitem"><a class="dropdown-item" href="#">Profilis</a></li>
+                        <li role="menuitem">
+                                <a class="dropdown-item btn btn-label-brand btn-upper btn-bold" (click)="logout()">Atsijungti</a>
                         </li>
                     </ul>
                 </div>
@@ -33,19 +31,11 @@
         </ul>
     </ng-container>
 
-
-
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <ng-container *ngIf="!(isAuthed$ | async); else logOut">
+            <ng-container *ngIf="!(isAuthed$ | async)">
                 <a class="btn btn-label-brand btn-upper btn-bold" routerLink="/login">Login</a>
             </ng-container>
-
-
-
-            <ng-template #logOut>
-                <a class="btn btn-label-brand btn-upper btn-bold" (click)="logout()">Atsijungti</a>
-            </ng-template>
         </li>
     </ul>
 </nav>

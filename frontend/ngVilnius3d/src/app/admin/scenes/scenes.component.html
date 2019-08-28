@@ -10,7 +10,7 @@
 
 <div class="scene-lists container">
     <ng-container *ngFor="let scene of scenes$ | async">
-        <a routerLink="'dsd'">
+        <a [routerLink]="['./', scene.slug]">
             <div class="row scene-lists__item">
                 <div class="col-md-2">
                     <div class="scene-lists__img">
@@ -21,7 +21,7 @@
                 <div class="col">{{ scene.description }}</div>
                 <div class="col-1">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-                        <path [attr.d]="arrowR" />
+                        <path [attr.d]="icon" />
                     </svg></div>
             </div>
         </a>

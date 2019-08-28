@@ -12,7 +12,11 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   private formatErrors(error: any) {
-    return  throwError(error.error);
+    return  throwError(error);
+  }
+
+  handleError(error:  any) {
+   return throwError('POST failed', error)  
   }
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
@@ -25,6 +29,12 @@ export class ApiService {
     return this.http.get(`${environment.urlExpress}${path}`, { params }).pipe(
       catchError(this.formatErrors)
     )
+  }
+
+  postExpress(path: string, body:  Object): Observable<any> {
+    return this.http.post(`${environment.urlExpress}${path}`, body).pipe(
+      catchError(this.handleError)
+    );
   }
 
 }

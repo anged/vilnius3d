@@ -1,3 +1,7 @@
+a:not([href]):not([tabindex]) {
+    color: #e82b35;
+ }
+
 nav {
     box-shadow: 1px 1px 40px 0px rgba(77, 78, 82, 0.29);
     min-height: 70px;
@@ -28,7 +32,6 @@ nav {
 }
 
 .btn {
-    border-color: #e82b35;
     align-self: center;
     font-weight: 500;
     font-size: 0.875rem;

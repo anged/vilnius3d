@@ -23,7 +23,6 @@ import { Vilnius3dHttpInterceptor } from './interceptors/vilnius3d-http-intercep
     SharedModule,
     AdminModule,
     AuthModule
-    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Vilnius3dHttpInterceptor, multi: true },

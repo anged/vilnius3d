@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ScenesService } from '../../services/scenes.service';
 import { Observable } from 'rxjs';
 import { Scene } from '../../models/scene.model';
-import { chevronRight32 } from '@esri/calcite-ui-icons';
+import { chevronRight32, pencil16 } from '@esri/calcite-ui-icons';
 
 @Component({
   selector: 'v3d-scenes',
@@ -11,7 +11,7 @@ import { chevronRight32 } from '@esri/calcite-ui-icons';
 })
 export class ScenesComponent implements OnInit {
   scenes$: Observable<Scene[]>;
-  arrowR = chevronRight32; 
+  icon = chevronRight32; 
   constructor(private scenesService: ScenesService) { }
 
   ngOnInit() {

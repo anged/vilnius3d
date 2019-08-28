@@ -1,0 +1,38 @@
+<div class="editor-page">
+    <div class="container page">
+        <div class="row">
+            <div class="col-md-10 col-xs-12">
+                <form [formGroup]="sceneForm" (ngSubmit)="onSubmit()">
+
+                    <fieldset [disabled]="isSubmitting">
+
+                        <fieldset class="form-group">
+                            <label>Pavadinimas</label>
+                            <input class="form-control form-control-lg editor-page__title" formControlName="title" type="text"
+                                placeholder="Pavadinimas" required />
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label>Trumpas Aprašymas</label>
+                            <textarea class="form-control" formControlName="description" rows="3"
+                                placeholder="Aprašymas" required></textarea>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label>Scenos nuoroda</label>
+                            <input class="form-control" formControlName="sceneUrl" type="text"
+                                placeholder="Scenos nuoroda" required />
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label>Paveiksliukas</label>
+                            <input class="form-control"  (change)="onFileChange($event)" type="file" name="file" required />
+                        </fieldset>
+
+                        <button class="btn btn-lg pull-xs-right btn-primary" type="button" (click)="submitForm()">
+                            Išsaugoti
+                        </button>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,7 +6,7 @@ import { IsAuthenticatedGuard } from './is-authenticated.guard';
 import { ScenesComponent } from './scenes/scenes.component';
 import { UsersComponent } from './users/users.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { SceneEditorComponent } from './scene-editor/scene-editor.component';
 
 const routes: Routes = [
   {
@@ -17,16 +17,31 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         canActivate: [IsAuthenticatedGuard],
+        data: { breadcrumb: 'Valdymo skydelis'},
         children: [
           {
             path: 'scenes',
-            component: ScenesComponent
+            component: ScenesComponent,
+            data: { breadcrumb: 'Scenos' }
+          }, {
+            path: 'scenes',
+            data: { breadcrumb: 'Scenos' },
+            children: [
+              {
+                path: ':slug',
+                component: SceneEditorComponent,
+                data: { breadcrumb: 'Scena' },
+
+              }
+            ]
           }, {
             path: 'users',
-            component: UsersComponent
+            component: UsersComponent,
+            data: { breadcrumb: 'Vartotojai' }
           }, {
             path: 'profile',
-            component: ProfileComponent
+            component: ProfileComponent,
+            data: { breadcrumb: 'Vartotojo profilis' }
           }
         ]
       }

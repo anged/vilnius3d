@@ -64,7 +64,7 @@ app.route('/auth')
         next();
     }, addToken);
 
-//token validation
+// token validation
 var authenticate = eJwt({
     secret: process.env.VILNIUS3D_SECRET,
     getToken: function (req) {

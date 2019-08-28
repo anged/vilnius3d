@@ -6,6 +6,6 @@ export class UtilsAdmin {
             form.append(key, value[key])
         }
 
-        return value;
+        return form;
     }
 }

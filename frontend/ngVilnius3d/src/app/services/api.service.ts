@@ -31,7 +31,8 @@ export class ApiService {
     )
   }
 
-  postExpress(path: string, body:  Object): Observable<any> {
+  postExpress(path: string, body: any): Observable<any> {
+    console.log('body',  body);
     return this.http.post(`${environment.urlExpress}${path}`, body).pipe(
       catchError(this.handleError)
     );

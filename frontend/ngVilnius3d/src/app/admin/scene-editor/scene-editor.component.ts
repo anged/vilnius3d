@@ -57,9 +57,16 @@ export class SceneEditorComponent implements OnInit {
 
   onFileChange(event) {
     console.log('F event', event)
-    let file = event.target.files[0]; // <--- File Object for future use.
-    this.sceneForm.controls['photo'].setValue(file ? file.name : ''); // <-- Set Value for Validation
+    const file = event.target.files[0];
+    this.sceneForm.controls['photo'].setValue(file ? file : null);
     console.log("FORM", this.sceneForm)
+  }
+
+  onSubmit() {
+    console.log('Form Value', this.sceneForm.value);
+    this.scenesService.saveScene(this.sceneForm.value).subscribe(data => {
+      console.log('POST data', data);
+    });
   }
 
 }

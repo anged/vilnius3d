@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { Scene } from '../models/scene.model';
 
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { ApiService } from './api.service';
 import { shareReplay, map, tap } from 'rxjs/operators';
 
+import { UtilsAdmin } from '../admin/utils-admin';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,17 @@ export class ScenesService {
     return this.getScenes().pipe(
       map(scenes => scenes.filter(sceneSingle => sceneSingle.slug === slug)[0])
     )
+  }
+
+  saveScene(scene: Scene): Observable<Scene> {
+    // check if scene exists
+    if (scene.slug) {
+      // return this.apiService.putExpress(`/scenes/${scene.slug}`, UtilsAdmin.convertToFormData(scene))
+      return this.apiService.postExpress('/scene', UtilsAdmin.convertToFormData(scene));
+    } else {
+      console.log('IMG',  UtilsAdmin.convertToFormData(scene));
+      return this.apiService.postExpress('/scene', UtilsAdmin.convertToFormData(scene));
+    }
   }
   
 }

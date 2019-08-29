@@ -1,1 +1,36 @@
-<p>users works!</p>
+<h3>Vartotojai</h3>
+
+<div class="users__header container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-3">Vartotojas</div>
+        <div class="col-md-2">Rolė</div>
+        <div class="col-md-2">Atnaujinti</div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+<div class="users-lists container">
+    <ng-container *ngFor="let user of users$ | async">
+        <div class="row users-lists__item">
+            <div class="col-md-2">
+                <div class="users-lists__img">
+                    <img [src]="user.image" alt="Vartotojas">
+                </div>
+            </div>
+            <div class="col-md-3">{{ user.name }}</div>
+            <div class="col-md-2">{{ user.role }}</div>
+            <div class="col-md-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+                        <path [attr.d]="iconUpload" />
+                    </svg>
+                </div>
+            <div class="col-md-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+                    <path [attr.d]="iconRemove" />
+                </svg>
+            </div>
+
+        </div>
+    </ng-container>
+</div>

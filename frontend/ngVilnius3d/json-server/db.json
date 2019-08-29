@@ -1,7 +1,15 @@
 {
     "users": [
-        {
-            "id": 1
+        {   
+            "id": 54534,
+            "name": "Andrius G",
+            "image": "https://lh3.googleusercontent.com/a-/AAuE7mBJ6zr41hDJrrdnJMrNHvoI03CvUn5DFupIyDxHlA=s100-c",
+            "role": "sadmin"
+        }, {
+            "id": 36454,
+            "name": "Jonas",
+            "image": "https://lh3.googleusercontent.com/a-/AAuE7mBJ6zr41hDJrrdnJMrNHvoI03CvUn5DFupIyDxHlA=s100-c",
+            "role": "admin"
         }
     ],
     "mapScenes": [

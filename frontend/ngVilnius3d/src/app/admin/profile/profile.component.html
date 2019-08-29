@@ -1,1 +1,13 @@
-<p>profile works!</p>
+<h3>Profilis</h3>
+
+<div class="profile">
+    <ng-container *ngIf="(currentUser$ | async) as user">
+        <div class="media">
+            <img [src]="user?.img + '=s100-c'" class="align-self-start mr-3" alt="profile">
+            <div class="media-body">
+                <h5 class="mt-0">Vartotojo vardas</h5>
+                <p>{{ user.name }}</p>
+            </div>
+        </div>
+    </ng-container>
+</div>

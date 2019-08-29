@@ -31,9 +31,12 @@ const routes: Routes = [
                 path: ':slug',
                 component: SceneEditorComponent,
                 data: { breadcrumb: 'Scena' },
-
               }
             ]
+          }, {
+            path: 'new-scene',
+            data: { breadcrumb: 'Nauja scena' },
+            component: SceneEditorComponent
           }, {
             path: 'users',
             component: UsersComponent,

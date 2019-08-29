@@ -8,26 +8,55 @@
 
                         <fieldset class="form-group">
                             <label>Pavadinimas</label>
-                            <input class="form-control form-control-lg editor-page__title" formControlName="title" type="text"
-                                placeholder="Pavadinimas" required />
+                            <input class="form-control form-control-lg editor-page__title" formControlName="title"
+                                type="text" />
                         </fieldset>
+
                         <fieldset class="form-group">
                             <label>Trumpas Aprašymas</label>
                             <textarea class="form-control" formControlName="description" rows="3"
-                                placeholder="Aprašymas" required></textarea>
+                               ></textarea>
                         </fieldset>
+
                         <fieldset class="form-group">
                             <label>Scenos nuoroda</label>
                             <input class="form-control" formControlName="sceneUrl" type="text"
-                                placeholder="Scenos nuoroda" required />
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <label>Paveiksliukas</label>
-                            <input class="form-control"  (change)="onFileChange($event)" type="file" name="file" required />
+                                />
                         </fieldset>
 
-                        <button class="btn btn-lg pull-xs-right btn-primary" type="submit">
-                            Išsaugoti
+                        <fieldset class="form-group">
+                            <div *ngIf="imageUrl">
+                                <label>Esamas paveiksliukas:</label>
+                                <div>
+                                    <a [href]="imageUrl" target="_blank" rel="noopener noreferrer">{{ imageUrl }}</a>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label *ngIf="!imageUrl">Paveiksliukas</label>
+                            <label *ngIf="imageUrl">Keisti paveiksliuką</label>
+                            <input class="form-control-file" (change)="onFileChange($event)" type="file" name="file" />
+                        </fieldset>
+
+                        <div *ngIf="sceneForm.get('img')?.value && sceneForm.get('img').errors?.fileValidator"
+                            class="cross-validation-error-message alert alert-danger">
+                            Blogas failo tipas. Galimi variantai jpg | png
+                        </div>
+
+                        <p>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path [attr.d]="iconMark" />
+                            </svg><span>Laukai privalo būti užpildyti</span>
+                        </p>
+
+
+
+                        <button class="btn btn-lg pull-xs-right btn-primary" type="submit"
+                            [disabled]="!sceneForm.valid">
+                            <ng-container *ngIf="!imageUrl; else Resave">Išsaugoti</ng-container>
+                            <ng-template #Resave>Atnaujinti</ng-template>
+                            
                         </button>
 
                     </fieldset>

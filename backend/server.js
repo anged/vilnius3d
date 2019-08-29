@@ -103,9 +103,9 @@ app.route('/auth/user')
 
 // TODO use router
 const savesCene = function (req, res) {
-    console.log(req.files); // list of the files
-    // console.log(req.body); // request body, like email
-    const file = req.files.photo
+    // console.log(req.files); // list of the files
+    console.log(req.body); // request body, like email
+    const file = req.files.img
 
     file.mv(`${uploadDir}/${file.name}`, (err, succ) => {
         res.json({ success: true });

@@ -32,8 +32,19 @@ export class ApiService {
   }
 
   postExpress(path: string, body: any): Observable<any> {
-    console.log('body',  body);
     return this.http.post(`${environment.urlExpress}${path}`, body).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  putExpress(path: string, body: any): Observable<any> {
+    return this.http.put(`${environment.urlExpress}${path}`, body).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteExpress(path: string): Observable<any> {
+    return this.http.delete(`${environment.urlExpress}${path}`).pipe(
       catchError(this.handleError)
     );
   }

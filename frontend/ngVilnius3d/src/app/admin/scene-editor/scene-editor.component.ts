@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { switchMap, tap, mergeMapTo } from 'rxjs/operators';
+import { switchMap, tap, mergeMapTo, mergeMap } from 'rxjs/operators';
 import { Scene } from '../../models/scene.model';
 import { ScenesService } from '../../services/scenes.service';
 import { FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { BreadcrumbService } from 'angular-crumbs';
 import { fileValidator } from './fileValidator';
 import { exclamationMarkCircle16 } from "@esri/calcite-ui-icons";
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'v3d-scene-editor',
@@ -21,22 +22,27 @@ export class SceneEditorComponent implements OnInit {
     photo: this.formBuilder.group({
       url: ['']
     })
-
   });
 
+  // check if scene should be updated, otherwise post new scene
+  private shouldUpdate: boolean;
+  private slug: string;
   imageUrl: string;
-
   iconMark = exclamationMarkCircle16;
+  modal: BsModalRef;
+  success = false;
 
   constructor(
     private route: ActivatedRoute,
     private breadcrumbService: BreadcrumbService,
     private r: Router,
     private scenesService: ScenesService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private bsModalService: BsModalService) { }
 
   ngOnInit() {
     console.log('ROUTE', this.r)
+    // TODO block UI when submiting  form
 
 
     this.route.url.pipe(
@@ -46,8 +52,14 @@ export class SceneEditorComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.scenesService.getScene(params.get('slug')))
     ).subscribe((scene: Scene) => {
-      console.log('scene', scene)
+      // check if scene should be updated, otherwise post new scene
+      // could be using only slug instead, because scene with slug should be always updated
+      // to be more explicit we'll stray with shouldUpdate
+      this.slug = scene ? `/${scene.slug}` : '';
+
       // check if scene exist and patch scene to form  for  existing components
+
+      console.log('scene', this.slug)
       if (scene) {
         this.sceneForm.patchValue(scene);
 
@@ -62,7 +74,11 @@ export class SceneEditorComponent implements OnInit {
           this.imageUrl = '';
         }
 
+        this.shouldUpdate = true;
+      } else {
+        this.shouldUpdate = false;
       }
+
       // add url control and it's validator
       // validator checks if imageUrl exists and knows whether we can pass empty file
       this.sceneForm.addControl('img', new FormControl('', fileValidator(this.imageUrl)));
@@ -78,12 +94,29 @@ export class SceneEditorComponent implements OnInit {
   }
 
   onSubmit() {
-
     console.log('Form Value', this.sceneForm.touched, this.sceneForm.valid);
-      this.scenesService.saveScene(this.sceneForm.value).subscribe(data => {
-        console.log('POST data', data);
-      });
+    this.scenesService.saveScene(this.sceneForm.value, this.shouldUpdate).subscribe((data) => {
+      console.log('POST data', data);
+      this.success =  data ? true : false;
+      // TODO patch succussfully updated scene and update imageUrl
+    });
 
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modal = this.bsModalService.show(template, { class: 'modal-sm' });
+  }
+
+  confirmDelete(): void {
+    this.modal.hide();
+    this.scenesService.deleteScene(this.slug).subscribe(data => {
+      console.log('POST data', data);
+      // TODO redirect
+    });
+  }
+
+  decline(): void {
+    this.modal.hide();
   }
 
 }

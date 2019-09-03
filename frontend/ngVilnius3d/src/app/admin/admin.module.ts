@@ -12,6 +12,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { SceneEditorComponent } from './scene-editor/scene-editor.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     ReactiveFormsModule,
     AdminRoutingModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
+    AlertModule.forRoot()
   ]
 })
 export class AdminModule { }

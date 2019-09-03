@@ -14,14 +14,12 @@
 
                         <fieldset class="form-group">
                             <label>Trumpas Aprašymas</label>
-                            <textarea class="form-control" formControlName="description" rows="3"
-                               ></textarea>
+                            <textarea class="form-control" formControlName="description" rows="3"></textarea>
                         </fieldset>
 
                         <fieldset class="form-group">
                             <label>Scenos nuoroda</label>
-                            <input class="form-control" formControlName="sceneUrl" type="text"
-                                />
+                            <input class="form-control" formControlName="sceneUrl" type="text" />
                         </fieldset>
 
                         <fieldset class="form-group">
@@ -52,16 +50,29 @@
 
 
 
-                        <button class="btn btn-lg pull-xs-right btn-primary" type="submit"
-                            [disabled]="!sceneForm.valid">
+                        <button class="btn btn-lg btn-primary" type="submit" [disabled]="!sceneForm.valid">
                             <ng-container *ngIf="!imageUrl; else Resave">Išsaugoti</ng-container>
                             <ng-template #Resave>Atnaujinti</ng-template>
-                            
                         </button>
+
+                        <button class="btn btn-lg btn-outline-primary editor-page__delete" type="button"
+                            *ngIf="imageUrl" (click)="openModal(delete)">
+                            Naikinti
+                        </button>
+                        <ng-template #delete>
+                            <div class="modal-body text-center">
+                                <p>Ar tikrai norite panaikinti sceną</p>
+                                <button type="button" class="btn btn-default" (click)="confirmDelete()">Taip</button>
+                                <button type="button" class="btn btn-primary" (click)="decline()">Ne</button>
+                            </div>
+                        </ng-template>
 
                     </fieldset>
                 </form>
             </div>
+
+            <alert *ngIf="success" class="editor-page__alert" type="success" dismissOnTimeout="10000" dismissible="true">Scena sėkmingai įkelta / atnaujinta</alert>
+
         </div>
     </div>
 </div>

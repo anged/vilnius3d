@@ -102,7 +102,7 @@ app.route('/auth/user')
 // ------------------------- //
 
 // TODO use router
-const savesCene = function (req, res) {
+const saveScene = function (req, res) {
     // console.log(req.files); // list of the files
     console.log(req.body); // request body, like email
     const file = req.files.img
@@ -114,8 +114,18 @@ const savesCene = function (req, res) {
 
 // Post scene
 app.route('/scene')
-    .post(authenticate, savesCene);
+    .post(authenticate, saveScene);
 
+
+// ------------------------- //
+
+const deleteScene = function (req, res) {
+    console.log(clrs.red(req.params.slug, req.params)); // request body, like email
+};
+
+// Delete scene
+app.route('/scene/:slug')
+    .delete(authenticate, deleteScene);
 
 
 app.listen(PORT, () => {

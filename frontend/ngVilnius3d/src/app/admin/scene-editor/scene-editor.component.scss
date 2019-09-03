@@ -1,6 +1,18 @@
-.editor-page__title {
-    font-weight: 600;
+.editor-page {
+    &__title {
+        font-weight: 600;
+    }
+
+    &__delete {
+        margin: 0 1rem;
+    }
+
+    &__alert {
+        margin-top: 2rem;
+    }
+
 }
+
 
 label {
     color: #6c757d;

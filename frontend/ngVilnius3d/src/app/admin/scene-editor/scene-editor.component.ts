@@ -35,13 +35,13 @@ export class SceneEditorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private breadcrumbService: BreadcrumbService,
-    private r: Router,
+    private router: Router,
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
     private bsModalService: BsModalService) { }
 
   ngOnInit() {
-    console.log('ROUTE', this.r)
+    console.log('ROUTE', this.router);
     // TODO block UI when submiting  form
 
 
@@ -80,7 +80,7 @@ export class SceneEditorComponent implements OnInit {
       }
 
       // add url control and it's validator
-      // validator checks if imageUrl exists and knows whether we can pass empty file
+      // validator checks if imageUrl exists and knows whether we can pass validtion for empty file
       this.sceneForm.addControl('img', new FormControl('', fileValidator(this.imageUrl)));
 
     });
@@ -95,7 +95,7 @@ export class SceneEditorComponent implements OnInit {
 
   onSubmit() {
     console.log('Form Value', this.sceneForm.touched, this.sceneForm.valid);
-    this.scenesService.saveScene(this.sceneForm.value, this.shouldUpdate).subscribe((data) => {
+    this.scenesService.saveScene(this.sceneForm.value, this.shouldUpdate, this.slug).subscribe((data) => {
       console.log('POST data', data);
       this.success =  data ? true : false;
       // TODO patch succussfully updated scene and update imageUrl
@@ -112,6 +112,8 @@ export class SceneEditorComponent implements OnInit {
     this.scenesService.deleteScene(this.slug).subscribe(data => {
       console.log('POST data', data);
       // TODO redirect
+      // Not addding any msg, just redirecting
+      this.router.navigate(['/admin/dashboard/scenes'])
     });
   }
 

@@ -3,6 +3,8 @@ h4 {
 }
 
 .sidebar {
+    margin-bottom: 2rem;
+
     &__item {
         display: flex;
         align-items: center;
@@ -29,10 +31,11 @@ h4 {
     }
 }
 
-.add-scene {
-    margin-top: 2.5rem;
+.add-btn {
+    margin-top: 1rem;
 
     .btn {
+        width: 100%;
         background-color: #e82b35;
         align-self: center;
         font-weight: 500;

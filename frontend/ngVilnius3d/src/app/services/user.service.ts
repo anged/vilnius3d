@@ -76,7 +76,7 @@ export class UserService {
       oAuth2Instance.signOut().then(() => {
         this.ngZone.run(() => {
           console.log('Log out')
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/login']);
         })
       });
     }

@@ -5,7 +5,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-3">Vartotojas</div>
         <div class="col-md-2">Rolė</div>
-        <div class="col-md-2">Atnaujinti</div>
+        <div class="col-md-2">El. paštas</div>
         <div class="col-md-1"></div>
     </div>
 </div>
@@ -20,15 +20,20 @@
             </div>
             <div class="col-md-3">{{ user.name }}</div>
             <div class="col-md-2">{{ user.role }}</div>
-            <div class="col-md-2 users-lists__update">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-                        <path [attr.d]="iconUpload" />
-                    </svg>
-                </div>
+            <div class="col-md-2">{{ user.email }}</div>
             <div class="col-md-1">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-                    <path [attr.d]="iconRemove" />
-                </svg>
+                <button class="btn" (click)="openModal(delete)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+                        <path [attr.d]="iconRemove" />
+                    </svg>
+                </button>
+                <ng-template #delete>
+                    <div class="modal-body text-center">
+                        <p>Ar tikrai norite panaikinti vartotoją</p>
+                        <button type="button" class="btn btn-default" (click)="confirmDelete(user.id)">Taip</button>
+                        <button type="button" class="btn btn-primary" (click)="decline()">Ne</button>
+                    </div>
+                </ng-template>
             </div>
 
         </div>

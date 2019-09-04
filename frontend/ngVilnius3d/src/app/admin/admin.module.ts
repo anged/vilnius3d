@@ -14,6 +14,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { HelpComponent } from './dashboard/help.component';
+import { UserEditorComponent } from './user-editor/user-editor.component';
+import { FormsModule }   from '@angular/forms';
+import { EmailValidatorDirective } from './user-editor/email-validator.directive';
 
 @NgModule({
   declarations: [
@@ -24,10 +28,14 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     ScenesComponent,
     UsersComponent,
     ProfileComponent,
-    SceneEditorComponent
+    SceneEditorComponent,
+    HelpComponent,
+    UserEditorComponent,
+    EmailValidatorDirective
   ],
   imports: [
     SharedModule,
+    FormsModule,
     ReactiveFormsModule,
     AdminRoutingModule,
     BsDropdownModule.forRoot(),

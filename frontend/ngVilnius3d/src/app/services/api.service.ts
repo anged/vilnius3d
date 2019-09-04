@@ -16,6 +16,7 @@ export class ApiService {
   }
 
   handleError(error:  any) {
+    console.error(error);
    return throwError('POST failed', error)  
   }
 
@@ -32,6 +33,7 @@ export class ApiService {
   }
 
   postExpress(path: string, body: any): Observable<any> {
+    console.log(body, path)
     return this.http.post(`${environment.urlExpress}${path}`, body).pipe(
       catchError(this.handleError)
     );

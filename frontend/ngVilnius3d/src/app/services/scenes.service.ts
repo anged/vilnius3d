@@ -27,10 +27,10 @@ export class ScenesService {
     )
   }
 
-  saveScene(scene: Scene, update: boolean = false): Observable<Scene> {
+  saveScene(scene: Scene, update: boolean = false, slug=''): Observable<Scene> {
     // check if scene exists
     if (update) {
-      return this.apiService.putExpress('/scene', UtilsAdmin.convertToFormData(scene));
+      return this.apiService.putExpress(`/scene${slug}`, UtilsAdmin.convertToFormData(scene));
     } else {
       console.log('IMG',  UtilsAdmin.convertToFormData(scene));
       return this.apiService.postExpress('/scene', UtilsAdmin.convertToFormData(scene));

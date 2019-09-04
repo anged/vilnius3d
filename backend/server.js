@@ -116,15 +116,37 @@ const saveScene = function (req, res) {
 app.route('/scene')
     .post(authenticate, saveScene);
 
+// ------------------------- //
+
+const saveUser = function (req, res) {
+    // console.log(req.files); // list of the files
+    console.log(clrs.green(req.body)); // request body, like email
+};
+
+// Post user
+app.route('/user')
+    .post(authenticate, saveUser);
+
 
 // ------------------------- //
 
-const deleteScene = function (req, res) {
-    console.log(clrs.red(req.params.slug, req.params)); // request body, like email
+const updateScene = function (req, res) {
+    console.log(clrs.green('UPDATE', req.params.slug, req.params)); 
+    // TEMP
+    res.json({ success: true });
+
 };
 
-// Delete scene
+const deleteScene = function (req, res) {
+    console.log(clrs.red('DELETE', req.params.slug, req.params)); 
+    // TEMP
+    res.json({ success: true });
+
+};
+
+// Update / Delete scene
 app.route('/scene/:slug')
+    .put(authenticate, updateScene)
     .delete(authenticate, deleteScene);
 
 

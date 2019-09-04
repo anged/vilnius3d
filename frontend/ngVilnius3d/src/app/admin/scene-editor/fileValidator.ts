@@ -1,5 +1,4 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { format } from 'path';
 
 const allowedtypes = ['png', 'jpg']
 

@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   url: 'http://localhost:3100',
+  // urlExpress: 'http://gis.vplanas.lt:4202'
   urlExpress: 'http://localhost:4200'
 };
 

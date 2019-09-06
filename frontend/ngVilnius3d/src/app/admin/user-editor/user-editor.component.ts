@@ -22,6 +22,7 @@ export class UserEditorComponent implements OnInit {
       // TODO pipe and add messages:
       // success
       // error + reasons
+      console.log('USER CREATED', data)
     });
   }
 

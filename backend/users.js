@@ -1,39 +1,47 @@
 const sql = require('mssql');
 const config = require('./config');
-require('./env');
+require('dotenv').config();
 
 // Basic SQL cmnds: https://www.codecademy.com/articles/sql-commands
 
 
-const authenticateDBUser = (req, res, next) => {
-    (async () => {
-        try {
-            await sql.connect(config);
-            const result = await sql.query`select * from ${proccess.env.VILNIUS_SDE_USERS} where email is ${req.user.email}`;
-            if (result.recordset.length === 0) {
-                res.send(401, "Not authorized");
-            } else {
-                //  user for token
-                req.authUser = {
-                    name: req.user.name,
-                    id: req.user.googleId,
-                    img: req.user.image
-                }
-                next();
-            }
+const addDBUsersData = (name, uid, img) => {
+  
+};
 
-            sql.close();
-        } catch (err) {
-            res.send(401, err);
-        }      
-    })();
+const getDBUser = async (profile) => {
+    try {
+        console.log('ASYNC');
+        await sql.connect(config);
+        const result = await sql.query`select * from VP3D.VILNIUS3D_USERS`;
+        // const result = await sql.query`
+        // insert into VP3D.VILNIUS3D_USERS (
+        //         name,
+        //         email,
+        //         uid,
+        //         role
+        //     )
+        //     values ( 
+        //             ${profile.displayName},
+        //             ${profile.emails[0].value},
+        //             ${profile.id.trim()},
+        //             'sAdmin'
+        //         )
+        // `;
+        console.log('3D DB', result.recordset);
+        sql.close();
+        return result.recordset[0];
+    } catch (err) {
+        // ... error checks
+        console.error(err);
+    }
 };
 
 const getDBUsers = (req, res, next) => {
     (async () => {
         try {
             await sql.connect(config);
-            const result = await sql.query`select * from ${proccess.env.VILNIUS_SDE_USERS}`;
+            const result = await sql.query`select * from VP3D.VILNIUS3D_USERS`;
             sql.close();
             res.json(result.recordset);
         } catch (err) {
@@ -46,9 +54,9 @@ const deleteDBUser = (req, res, next) => {
     (async () => {
         try {
             await sql.connect(config);
-            const result = await sql.query`delete * from ${proccess.env.VILNIUS_SDE_USERS} where email is ${req.user.email}`;
+            const result = await sql.query`delete from VP3D.VILNIUS3D_USERS where email is ${req.body.email}`;
             
-            // TODO implement delete
+            // TODO implement delete response
 
             sql.close();
         } catch (err) {
@@ -58,18 +66,33 @@ const deleteDBUser = (req, res, next) => {
 };
 
 const createDBUser = (req, res, next) => {
+    console.log('U', req.body);
     (async () => {
         try {
-            await sql.connect(config);
-            const result = await sql.query`delete * from ${proccess.env.VILNIUS_SDE_USERS} where email is ${req.user.email}`;
-
-            // TODO implement delete
-
+            let pool = await sql.connect(config);
+            const result = await pool.request()
+                .input('email', sql.NVarChar, req.body.email)
+                .query`
+                insert into VP3D.VILNIUS3D_USERS (
+                    name,
+                    email,
+                    uid,
+                    role
+                )
+                values ( 
+                    '',
+                    @email,
+                    '',
+                    'admin'
+                    )
+            `;
             sql.close();
+            res.status(200).send({ message: 'user created'})
         } catch (err) {
-            res.send(401, err);
+            console.log(err);
+            res.status(500).send(err);
         }      
     })();
 };
 
-exports.modules = { authenticateDBUser, getDBUsers, deleteDBUser, createDBUser }; 
+module.exports = { getDBUser, getDBUsers, deleteDBUser, createDBUser }; 

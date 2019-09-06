@@ -7,7 +7,9 @@ const cors = require('cors');
 const app = express();
 const fileUpload = require('express-fileupload');
 var fs = require('fs');
-const uploadDir = __dirname + '/uploads'
+const uploadDir = __dirname + '/uploads';
+
+const { createDBUser } = require('./users');
 
 const clrs = require('colors');
 const PORT = process.env.PORT || 4200;
@@ -63,7 +65,7 @@ app.route('/auth')
         console.log(clrs.bgGreen('Authenticated?: ', req.isAuthenticated()));
 
         if (!req.user) {
-            res.send(401, "Not authorized");
+            res.status(401).send("Not authorized");
         }
 
         //  user for token
@@ -118,14 +120,15 @@ app.route('/scene')
 
 // ------------------------- //
 
-const saveUser = function (req, res) {
-    // console.log(req.files); // list of the files
-    console.log(clrs.green(req.body)); // request body, like email
-};
+// const saveUser = function (req, res) {
+//     // console.log(req.files); // list of the files
+//     console.log(clrs.green(req.body)); // request body, like email
+// };
 
 // Post user
 app.route('/user')
-    .post(authenticate, saveUser);
+    // .post(authenticate, saveUser);
+    .post(authenticate, createDBUser);
 
 
 // ------------------------- //

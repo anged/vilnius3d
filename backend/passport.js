@@ -20,10 +20,10 @@ passport.use(new GoogleTokenStrategy({
             }
         }
         console.log('Passport User', user);
-        return done(null, user)
+        return done(null, user);
     }).catch(err => {
         // TODO implement error
-        console.log(err)   
+        console.log(err);
         // return done(err, null)
     });
     // return done(null, {

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { trash16, arrowUpDown16 } from '@esri/calcite-ui-icons';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'v3d-users',
@@ -11,6 +12,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
+  imgPath = environment.urlExpress;
   users$: Observable<User[]>;
   iconRemove = trash16;
   iconUpload = arrowUpDown16;

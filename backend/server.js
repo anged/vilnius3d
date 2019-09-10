@@ -9,7 +9,7 @@ const fileUpload = require('express-fileupload');
 var fs = require('fs');
 const uploadDir = __dirname + '/uploads';
 
-const { createDBUser } = require('./users');
+const { createDBUser, getDBUsers } = require('./users');
 
 const clrs = require('colors');
 const PORT = process.env.PORT || 4200;
@@ -29,6 +29,8 @@ app.use(cors(corsOptions));
 
 app.use(fileUpload());
 
+app.use('/uploads', express.static('uploads'));
+app.use('/uploads/users', express.static('uploads/users'));
 
 // Parses the text as JSON and exposes the resulting object on req.body
 app.use(bodyParser.json({
@@ -65,7 +67,7 @@ app.route('/auth')
         console.log(clrs.bgGreen('Authenticated?: ', req.isAuthenticated()));
 
         if (!req.user) {
-            res.status(401).send("Not authorized");
+            res.status(401).send('Not authorized');
         }
 
         //  user for token
@@ -120,6 +122,13 @@ app.route('/scene')
 
 // ------------------------- //
 
+// Get users
+app.route('/users')
+    .get(authenticate, getDBUsers)
+
+
+// ------------------------- //
+
 // const saveUser = function (req, res) {
 //     // console.log(req.files); // list of the files
 //     console.log(clrs.green(req.body)); // request body, like email
@@ -159,6 +168,12 @@ app.listen(PORT, () => {
     // However express-fileupload should create dir if it doesn't exist
     if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir);
+    }
+    
+    
+    // create users dir
+    if (!fs.existsSync(uploadDir + '/users')) {
+        fs.mkdirSync(uploadDir + '/users');
     }
     
     console.log(uploadDir)

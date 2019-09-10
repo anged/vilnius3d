@@ -13,9 +13,12 @@ export class UsersService {
 
   // TODO change to get express
   getUsers(): Observable<User[]> {
-    return this.apiService.get('/users').pipe(
+    return this.apiService.getExpress('/users').pipe(
       shareReplay(1)
     );
+    // return this.apiService.get('/users').pipe(
+    //   shareReplay(1)
+    // );
   }
 
   createUser(email: string): Observable<User> {

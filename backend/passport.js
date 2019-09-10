@@ -15,8 +15,7 @@ passport.use(new GoogleTokenStrategy({
         let user;
         if (authedUser) {
             user = {
-                ...authedUser,
-                image: profile._json.picture
+                ...authedUser
             }
         }
         console.log('Passport User', user);

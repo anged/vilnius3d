@@ -8,6 +8,7 @@ import { BreadcrumbService } from 'angular-crumbs';
 import { fileValidator } from './fileValidator';
 import { exclamationMarkCircle16 } from "@esri/calcite-ui-icons";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'v3d-scene-editor',
@@ -23,6 +24,9 @@ export class SceneEditorComponent implements OnInit {
       url: ['']
     })
   });
+
+  imgPath = environment.urlExpress;
+
 
   // check if scene should be updated, otherwise post new scene
   private shouldUpdate: boolean;

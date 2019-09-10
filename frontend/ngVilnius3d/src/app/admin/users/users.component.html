@@ -5,8 +5,8 @@
         <div class="col-md-2"></div>
         <div class="col-md-3">Vartotojas</div>
         <div class="col-md-2">Rolė</div>
-        <div class="col-md-2">El. paštas</div>
-        <div class="col-md-1"></div>
+        <div class="col-md-3">El. paštas</div>
+        <div class="col-md-2"></div>
     </div>
 </div>
 
@@ -20,9 +20,9 @@
             </div>
             <div class="col-md-3">{{ user.name }}</div>
             <div class="col-md-2">{{ user.role }}</div>
-            <div class="col-md-2">{{ user.email }}</div>
-            <div class="col-md-1">
-                <button class="btn" (click)="openModal(delete)">
+            <div class="col-md-3">{{ user.email }}</div>
+            <div class="col-md-2">
+                <button *ngIf="user.role!=='sAdmin'" class="btn" (click)="openModal(delete)">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
                         <path [attr.d]="iconRemove" />
                     </svg>
@@ -38,4 +38,17 @@
 
         </div>
     </ng-container>
+
+
+    <ng-container *ngIf="usersNotAuthed$| async as users">
+        <h4 *ngIf="users.length">Užregistruoti, bet nepatvirtinę tapatybės</h4>
+    </ng-container>
+
+
+    <ng-container *ngFor="let user of usersNotAuthed$ | async">
+            <div class="users-lists--not-authed">
+                <a [href]="user.email">{{ user.email }}</a> - užregistruotas
+            </div>
+    </ng-container>
+    
 </div>

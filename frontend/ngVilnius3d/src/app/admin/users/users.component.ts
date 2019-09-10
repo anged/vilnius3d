@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user.model';
 import { trash16, arrowUpDown16 } from '@esri/calcite-ui-icons';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { environment } from '../../../environments/environment';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'v3d-users',
@@ -14,13 +15,21 @@ import { environment } from '../../../environments/environment';
 export class UsersComponent implements OnInit {
   imgPath = environment.urlExpress;
   users$: Observable<User[]>;
+  //Not first time authenticated users
+  usersNotAuthed$: Observable<User[]>;
   iconRemove = trash16;
   iconUpload = arrowUpDown16;
   modal: BsModalRef;
   constructor(private usersService: UsersService, private bsModalService: BsModalService) { }
 
   ngOnInit() {
-    this.users$ = this.usersService.getUsers();
+    this.users$ = this.usersService.getUsers().pipe(
+      tap(users => console.log('Users', users)),
+      map((users: User[]) => users.filter((user: User) => user.name && user.uid))
+    );
+    this.usersNotAuthed$ = this.usersService.getUsers().pipe(
+      map((users: User[]) => users.filter((user: User) => !user.name && !user.uid))
+    );
   }
 
     // Move modal boilerplate to seperate component

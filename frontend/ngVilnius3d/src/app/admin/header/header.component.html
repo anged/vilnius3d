@@ -13,7 +13,7 @@
                         aria-haspopup="true" aria-expanded="false" dropdownToggle>
                         <ng-container *ngIf="(currentUser$ | async) as user">
                             <span class="nav__user-picture">
-                                <span class="nav__user-name">{{ user.name }}</span> <img [src]="user?.img + '=s40-c'"
+                                <span class="nav__user-name">{{ user.name }}</span> <img [src]="imgPath + '/' + user?.img"
                                     alt="profile">
                             </span>
                         </ng-container>

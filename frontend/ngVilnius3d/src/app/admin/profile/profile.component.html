@@ -3,7 +3,7 @@
 <div class="profile">
     <ng-container *ngIf="(currentUser$ | async) as user">
         <div class="media">
-            <img [src]="user?.img + '=s100-c'" class="align-self-start mr-3" alt="profile">
+            <img [src]="imgPath + '/' + user.img" class="align-self-start mr-3" alt="profile">
             <div class="media-body">
                 <h5 class="mt-0">Vartotojo vardas</h5>
                 <p>{{ user.name }}</p>

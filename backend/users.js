@@ -42,7 +42,7 @@ const getDBUser = async (profile) => {
 
         // As we're registering  user only by email,
         // we must assgin full properties for authorized user at first authentication 
-        if (result.recordset[0] && result.recordset[0].name || result.recordset[0] && validator.isEmpty(result.recordset[0].name, { ignore_whitespace: true })) {
+        if (result.recordset[0] && !result.recordset[0].name || result.recordset[0] && validator.isEmpty(result.recordset[0].name, { ignore_whitespace: true })) {
             console.log(clrs.bgRed('NAME IS EMPTY 1'), result.recordset[0].name);
             await addDBFullUserData(pool, profile);
             await saveUserImage(profile._json.picture, profile.id)
@@ -68,7 +68,7 @@ const getDBUsers = (req, res, next) => {
             sql.close();
             res.json(result.recordset);
         } catch (err) {
-            res.send(401, err);
+            res.status(401).send(err);
         }
     })();
 };
@@ -77,13 +77,14 @@ const deleteDBUser = (req, res, next) => {
     (async () => {
         try {
             await sql.connect(config);
-            const result = await sql.query`delete from VP3D.VILNIUS3D_USERS where email is ${req.body.email}`;
+            // sAdmin user can not be deleted
+            const result = await sql.query`delete from VP3D.VILNIUS3D_USERS where id is ${req.body.id} and role <> 'sAdmin'`;
 
             // TODO implement delete response
-
             sql.close();
+            res.status(200).send({ message: 'User deleted', success: true});
         } catch (err) {
-            res.send(401, err);
+            res.status(401).send(err);
         }
     })();
 };

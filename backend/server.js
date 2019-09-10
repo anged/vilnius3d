@@ -46,9 +46,9 @@ app.use(bodyParser.urlencoded({
 
 const addToken = (req, res) => {
     const token = jwt.sign({
-        name: req.user.name,
+        name: req.authUser.name,
         id: req.authUser.id,
-        img: req.user.image
+        img: req.authUser.img
     }, process.env.VILNIUS3D_SECRET,
         {
             expiresIn: 60 * 120
@@ -74,7 +74,7 @@ app.route('/auth')
         req.authUser = {
             name: req.user.name,
             id: req.user.googleId,
-            img: req.user.image
+            img: req.user.img
         }
         next();
     }, addToken);

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'v3d-profile',
@@ -10,6 +11,7 @@ import { UserService } from '../../services/user.service';
 })
 export class ProfileComponent implements OnInit {
   currentUser$: Observable<User>;
+  imgPath = environment.urlExpress;
   constructor(private userService: UserService) { }
 
   ngOnInit() {

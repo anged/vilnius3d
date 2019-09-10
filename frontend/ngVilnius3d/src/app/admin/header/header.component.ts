@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'v3d-header',
@@ -11,6 +12,7 @@ import { User } from 'src/app/models/user.model';
 export class HeaderComponent implements OnInit {
   isAuthed$: Observable<boolean>;
   currentUser$: Observable<User>;
+  imgPath = environment.urlExpress;
   constructor(private userService: UserService) { }
 
   ngOnInit() {

@@ -68,7 +68,7 @@ const getDBUsers = (req, res, next) => {
             sql.close();
             res.json(result.recordset);
         } catch (err) {
-            res.status(401).send(err);
+            res.status(400).send(err);
         }
     })();
 };
@@ -77,14 +77,16 @@ const deleteDBUser = (req, res, next) => {
     (async () => {
         try {
             await sql.connect(config);
+            console.log('DELETE by ID', req.body.role, req.params.id)
             // sAdmin user can not be deleted
-            const result = await sql.query`delete from VP3D.VILNIUS3D_USERS where id is ${req.body.id} and role <> 'sAdmin'`;
-
+            const result = await sql.query`delete from VP3D.VILNIUS3D_USERS where id = ${req.params.id} and role <> 'sAdmin'`;
+            console.log(clrs.green(result))
             // TODO implement delete response
             sql.close();
             res.status(200).send({ message: 'User deleted', success: true});
         } catch (err) {
-            res.status(401).send(err);
+            console.log(err)
+            res.status(400).send(err);
         }
     })();
 };
@@ -124,7 +126,7 @@ const createDBUser = (req, res, next) => {
 
         } catch (err) {
             console.log(err);
-            res.status(500).send(err);
+            res.status(400).send(err);
         }
     })();
 };

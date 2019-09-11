@@ -9,7 +9,8 @@ const fileUpload = require('express-fileupload');
 var fs = require('fs');
 const uploadDir = __dirname + '/uploads';
 
-const { createDBUser, getDBUsers } = require('./users');
+const { createDBUser, getDBUsers, deleteDBUser } = require('./users');
+const { getScenes, saveScene, updateScene, deleteScene } = require('./scenes');
 
 const clrs = require('colors');
 const PORT = process.env.PORT || 4200;
@@ -23,7 +24,6 @@ require('dotenv').config();
 
 // Require passport config
 require('./passport');
-
 
 app.use(cors(corsOptions));
 
@@ -106,19 +106,6 @@ app.route('/auth/user')
 // ------------------------- //
 
 // TODO use router
-const saveScene = function (req, res) {
-    // console.log(req.files); // list of the files
-    console.log(req.body); // request body, like email
-    const file = req.files.img
-
-    file.mv(`${uploadDir}/${file.name}`, (err, succ) => {
-        res.json({ success: true });
-    })
-};
-
-// Post scene
-app.route('/scene')
-    .post(authenticate, saveScene);
 
 // ------------------------- //
 
@@ -127,37 +114,27 @@ app.route('/users')
     .get(authenticate, getDBUsers)
 
 
-// ------------------------- //
-
-// const saveUser = function (req, res) {
-//     // console.log(req.files); // list of the files
-//     console.log(clrs.green(req.body)); // request body, like email
-// };
-
 // Post user
 app.route('/user')
     // .post(authenticate, saveUser);
     .post(authenticate, createDBUser);
 
+// Delete user
+app.route('/user/:id')
+    .delete(authenticate, deleteDBUser);
 
 // ------------------------- //
 
-const updateScene = function (req, res) {
-    console.log(clrs.green('UPDATE', req.params.slug, req.params)); 
-    // TEMP
-    res.json({ success: true });
+// Post scene
+app.route('/scenes')
+    // .post(authenticate, getScenes);
+    .get(getScenes);
 
-};
-
-const deleteScene = function (req, res) {
-    console.log(clrs.red('DELETE', req.params.slug, req.params)); 
-    // TEMP
-    res.json({ success: true });
-
-};
+app.route('/scene')
+    .post(authenticate, saveScene);
 
 // Update / Delete scene
-app.route('/scene/:slug')
+app.route('/scene/:id')
     .put(authenticate, updateScene)
     .delete(authenticate, deleteScene);
 

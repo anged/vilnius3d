@@ -1,29 +1,40 @@
 <h3>Scenos</h3>
 
-<div class="scenes__header container">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-3">Pavadinimas</div>
-        <div class="col">Aprašymas</div>
-    </div>
-</div>
+<ng-container *ngIf="scenes$ | async as scenes; else noScenes">
+    <ng-container *ngIf="scenes.length; else noScenes">
 
-<div class="scene-lists container">
-    <ng-container *ngFor="let scene of scenes$ | async">
-        <a [routerLink]="['./', scene.slug]">
-            <div class="row scene-lists__item">
-                <div class="col-md-2">
-                    <div class="scene-lists__img">
-                        <img src="./assets/img/bendras-zemelapis.jpg" [alt]="scene.title">
-                    </div>
-                </div>
-                <div class="col-md-3">{{ scene.title }}</div>
-                <div class="col">{{ scene.description }}</div>
-                <div class="col-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-                        <path [attr.d]="icon" />
-                    </svg></div>
+        <div class="scenes__header container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">Pavadinimas</div>
+                <div class="col">Aprašymas</div>
             </div>
-        </a>
+        </div>
+
+        <div class="scene-lists container">
+            <ng-container *ngFor="let scene of scenes$ | async">
+                <a [routerLink]="['./', scene.id]">
+                    <div class="row scene-lists__item">
+                        <div class="col-md-2">
+                            <div class="scene-lists__img">
+                                <img [src]="imgPath + '/' + scene.img" [alt]="scene.title">
+                            </div>
+                        </div>
+                        <div class="col-md-3">{{ scene.title }}</div>
+                        <div class="col">{{ scene.description }}</div>
+                        <div class="col-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+                                <path [attr.d]="icon" />
+                            </svg></div>
+                    </div>
+                </a>
+            </ng-container>
+        </div>
     </ng-container>
-</div>
+</ng-container>
+
+<ng-template #noScenes>
+    <div class="scene-lists--empty">
+        Scenų nėra
+    </div>
+</ng-template>

@@ -48,6 +48,18 @@
     <ng-container *ngFor="let user of usersNotAuthed$ | async">
             <div class="users-lists--not-authed">
                 <a [href]="user.email">{{ user.email }}</a> - užregistruotas
+                <button *ngIf="user.role!=='sAdmin'" class="btn" (click)="openModal(delete)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+                        <path [attr.d]="iconRemove" />
+                    </svg>
+                </button>
+                <ng-template #delete>
+                    <div class="modal-body text-center">
+                        <p>Ar tikrai norite panaikinti vartotoją</p>
+                        <button type="button" class="btn btn-default" (click)="confirmDelete(user.id)">Taip</button>
+                        <button type="button" class="btn btn-primary" (click)="decline()">Ne</button>
+                    </div>
+                </ng-template>
             </div>
     </ng-container>
     

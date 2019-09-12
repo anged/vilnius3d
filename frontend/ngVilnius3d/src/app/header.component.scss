@@ -1,6 +1,6 @@
 h1 {
     color: #e72d34;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 32px;
     letter-spacing: -1px;
 }
@@ -10,7 +10,7 @@ h1 {
         display: inline-block;
         // background: #e61c24ed;
         height: 100px;
-        width: 110px;
+        width: auto;
         // margin: 10px;
     }
 
@@ -20,8 +20,8 @@ h1 {
     }
 
     &__title {
-        width: calc(100% - 120px) !important;
+        width: calc(100% - 100px);
         float: right;
-        padding: 25px 0px 0;
+        padding: 30px 10px 0;
     }
 }

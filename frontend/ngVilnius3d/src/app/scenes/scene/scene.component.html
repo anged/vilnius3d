@@ -1,7 +1,7 @@
 <div *blockUI="'iframe__section'">
 
     <ng-container *ngIf="(scene$ | async) as scene">
-        <iframe [src]="scene.sceneUrl | safeUrl" frameborder="0" scrolling="no" (load)="resizeIframe($event)"></iframe>
+        <iframe [src]="scene.scene | safeUrl" frameborder="0" scrolling="no" (load)="resizeIframe($event)"></iframe>
     </ng-container>
 
 </div>

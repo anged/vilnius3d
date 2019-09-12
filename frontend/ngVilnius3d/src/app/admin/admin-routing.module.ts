@@ -38,7 +38,7 @@ const routes: Routes = [
             data: { breadcrumb: 'Scenos' },
             children: [
               {
-                path: ':slug',
+                path: ':id',
                 component: SceneEditorComponent,
                 canActivate: [IsAuthenticatedGuard],
                 data: { breadcrumb: 'Scena' },
@@ -68,6 +68,9 @@ const routes: Routes = [
         ]
       }
     ]
+  }, {
+    path: '**',
+    redirectTo: 'login'
   }
 ];
 

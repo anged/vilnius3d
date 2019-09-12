@@ -12,9 +12,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import { SharedModule } from '../shared/shared.module';
+import { HomeScenesComponent } from './home-scenes/home-scenes.component';
 
 @NgModule({
-  declarations: [ HeaderComponent, ScenesListComponent, ScenesComponent, SceneComponent],
+  declarations: [ HeaderComponent, ScenesListComponent, ScenesComponent, SceneComponent, HomeScenesComponent],
   imports: [
     ScenesRoutingModule,
     BrowserAnimationsModule,

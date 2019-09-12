@@ -16,12 +16,18 @@ export class ScenesService {
   constructor(private apiService: ApiService) { }
 
   getScenes(): Observable<Scene[]> {
-    return this.apiService.get('/mapScenes').pipe(
+    return this.apiService.getExpress('/scenes').pipe(
       shareReplay(1)
     );
   }
 
-  getScene(slug: string): Observable<Scene> {
+  getScene(id: string): Observable<Scene> {
+    return this.getScenes().pipe(
+      map(scenes => scenes.filter(sceneSingle => sceneSingle.id.toString() === id)[0])
+    )
+  }
+
+  getSceneBySlug(slug: string): Observable<Scene> {
     return this.getScenes().pipe(
       map(scenes => scenes.filter(sceneSingle => sceneSingle.slug === slug)[0])
     )
@@ -37,8 +43,8 @@ export class ScenesService {
     }
   }
 
-  deleteScene(slug: string): Observable<Scene> {
-    return this.apiService.deleteExpress(`/scene${slug}`);
+  deleteScene(id: string): Observable<Scene> {
+    return this.apiService.deleteExpress(`/scene${id}`);
 
   }
   

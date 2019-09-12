@@ -49,4 +49,6 @@ export class UsersComponent implements OnInit {
     }
   
 
+    // TODO implement users request and log message after add and delete methods
+
 }

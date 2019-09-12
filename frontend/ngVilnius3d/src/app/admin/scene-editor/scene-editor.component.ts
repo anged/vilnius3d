@@ -19,7 +19,7 @@ export class SceneEditorComponent implements OnInit {
   sceneForm = this.formBuilder.group({
     title: ['', Validators.required],
     description: ['', Validators.required],
-    sceneUrl: ['', Validators.required],
+    scene: ['', Validators.required],
     photo: this.formBuilder.group({
       url: ['']
     })
@@ -30,7 +30,7 @@ export class SceneEditorComponent implements OnInit {
 
   // check if scene should be updated, otherwise post new scene
   private shouldUpdate: boolean;
-  private slug: string;
+  private id: string;
   imageUrl: string;
   iconMark = exclamationMarkCircle16;
   modal: BsModalRef;
@@ -54,16 +54,16 @@ export class SceneEditorComponent implements OnInit {
     ).subscribe()
 
     this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.scenesService.getScene(params.get('slug')))
+      switchMap((params: ParamMap) => this.scenesService.getScene(params.get('id')))
     ).subscribe((scene: Scene) => {
       // check if scene should be updated, otherwise post new scene
       // could be using only slug instead, because scene with slug should be always updated
       // to be more explicit we'll stray with shouldUpdate
-      this.slug = scene ? `/${scene.slug}` : '';
+      this.id = scene ? `/${scene.id}` : '';
 
       // check if scene exist and patch scene to form  for  existing components
 
-      console.log('scene', this.slug)
+      console.log('scene', this.id, scene)
       if (scene) {
         this.sceneForm.patchValue(scene);
 
@@ -72,8 +72,8 @@ export class SceneEditorComponent implements OnInit {
           this.sceneForm.controls['img'].reset();
         }
 
-        if (scene.photo && scene.photo.url) {
-          this.imageUrl = scene.photo.url;
+        if (scene.img) {
+          this.imageUrl = scene.img;
         } else {
           this.imageUrl = '';
         }
@@ -99,7 +99,7 @@ export class SceneEditorComponent implements OnInit {
 
   onSubmit() {
     console.log('Form Value', this.sceneForm.touched, this.sceneForm.valid);
-    this.scenesService.saveScene(this.sceneForm.value, this.shouldUpdate, this.slug).subscribe((data) => {
+    this.scenesService.saveScene(this.sceneForm.value, this.shouldUpdate, this.id).subscribe((data) => {
       console.log('POST data', data);
       this.success =  data ? true : false;
       // TODO patch succussfully updated scene and update imageUrl
@@ -113,7 +113,7 @@ export class SceneEditorComponent implements OnInit {
 
   confirmDelete(): void {
     this.modal.hide();
-    this.scenesService.deleteScene(this.slug).subscribe(data => {
+    this.scenesService.deleteScene(this.id).subscribe(data => {
       console.log('POST data', data);
       // TODO redirect
       // Not addding any msg, just redirecting

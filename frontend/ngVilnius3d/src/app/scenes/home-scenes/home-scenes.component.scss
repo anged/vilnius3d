@@ -1,0 +1,43 @@
+@import '~src/styles/variables';
+@import '~src/styles/mixins';
+
+@include responsive-columns(200px,  10px, true, 5);
+  
+.scenes {
+    margin: 10px;
+    position: relative;
+
+    &__item {
+        position: relative;
+        padding: 20px;
+        padding-bottom: 65px;
+        border-radius: 0.25rem;
+        box-sizing: border-box;
+        overflow: hidden;
+        background-size: cover;
+        background-position-x: center;
+    }
+}
+  
+h2, p {
+    color: #fff;
+}
+
+h2 {
+    margin: -20px;
+    margin-bottom: 1rem;
+    padding: 20px;
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+button {
+    position: absolute;
+    bottom: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    background: none;
+}

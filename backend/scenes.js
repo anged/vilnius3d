@@ -6,16 +6,25 @@ const clrs = require('colors');
 const fs = require('fs');
 const slug = require('slug');
 const uploadDir = __dirname + '/uploads/users/';
+const jimp = require('jimp');
 
 require('dotenv').config();
 
 // Basic SQL cmnds: https://www.codecademy.com/articles/sql-commands
 
-const addFile = (file, res) => {
-    // Move file
-    file.mv(`${uploadDir}/${file.name}`, (err, succ) => {
-        res.status(200).json({ message: 'Scene updated',  success: true });
-    });  
+const getScene = async (req, res, pool) => {
+    try {
+        console.log(clrs.bgYellow(req.params, req.body))
+        const result = await pool.request().query`select * from VP3D.VILNIUS3D_SCENES where id = ${req.params.id}`;
+        console.log(result)
+        sql.close();
+        res.status(200).json({ message: 'Scene updated',  success: true, scene: result.recordset[0] });
+        // res.json(result.recordset);
+    } catch (err) {
+        sql.close();
+
+        res.status(400).send(err);
+    }
 };
 
 const getScenes = async (req, res) => {
@@ -33,10 +42,37 @@ const getScenes = async (req, res) => {
     })();
 };
 
+const addFile = (file, req, res, pool=null) => {
+    const fullPath = `${uploadDir}/${file.name}`;
+    // Move file
+    file.mv(`${fullPath}`, (err, succ) => {
+        if (err) {
+            sql.close();
+            throw err;
+        };
+        jimp.read((`${fullPath}`), (err, image) => {
+            if (err) throw err;
+            image
+                .resize(jimp.AUTO, 600) // resize
+                .quality(90) // set JPEG quality
+                .crop( 0, 0, 600, 600 )
+                .write(`${fullPath}`); // save
+
+            if (pool) {
+                getScene(req, res, pool)   
+            }  else {
+                sql.close();
+                res.status(200).json({ message: 'Scene created',  success: true });
+            }
+        });
+    });  
+
+};
+
 const saveScene = async (req, res) => {
     console.log(req.body); // request body, like email
-    const file = req.files.img;
-    console.log(clrs.bgMagenta(file, req.body.scene))
+    const file = req.files.imgFile;
+    console.log(clrs.bgMagenta(file, req.body))
 
     try {
 
@@ -66,8 +102,7 @@ const saveScene = async (req, res) => {
                     )
             `;
         console.log('U', result);
-        sql.close();
-        addFile(file, res);
+        addFile(file, req, res);
     } catch (err) {
         console.log(err);
         sql.close();
@@ -82,10 +117,10 @@ const updateScene = async (req, res) => {
     try {
         const pool = await sql.connect(config);
         if (req.files) {
-            const file = req.files.img;
+            const file = req.files.imgFile;
             console.log('File', file)
             const imgUrl = `uploads/users/${file.name}`;
-            await pool.request()
+            const result = await pool.request()
                 .query`
                     update VP3D.VILNIUS3D_SCENES
                     set
@@ -97,9 +132,9 @@ const updateScene = async (req, res) => {
                     where id = ${req.params.id}
                     `;
 
-                    addFile(file, res);
+                    addFile(file, req, res, pool);
         } else {
-            await pool.request()
+            const result = await pool.request()
                 .query`
                     update VP3D.VILNIUS3D_SCENES
                     set
@@ -109,11 +144,11 @@ const updateScene = async (req, res) => {
                         slug = ${slugString}
                     where id = ${req.params.id}
                 `;
-
-                res.status(200).json({ message: 'Scene updated',  success: true });
+                console.log('result', result);
+                
+                getScene(req, res, pool);
+                // res.status(200).json({ message: 'Scene updated',  success: true });
         }
-
-        sql.close();
 
     } catch (err) {
         console.log(err)
@@ -123,7 +158,7 @@ const updateScene = async (req, res) => {
 };
 
 const deleteScene = function (req, res) {
-    console.log(clrs.red('DELETE', req.params.id, req.params));
+    console.log(clrs.red('DELETE', req.params.id, req.params, req.body));
     (async () => {
         try {
             await sql.connect(config);

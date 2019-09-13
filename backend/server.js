@@ -52,6 +52,7 @@ const addToken = (req, res) => {
     }, process.env.VILNIUS3D_SECRET,
         {
             expiresIn: 60 * 120
+            // expiresIn: 60
         });
 
     console.log(clrs.bgMagenta('JWT token', token))
@@ -125,11 +126,12 @@ app.route('/user/:id')
 
 // ------------------------- //
 
-// Post scene
+// GET scenes
 app.route('/scenes')
-    // .post(authenticate, getScenes);
+    // .get(authenticate, getScenes);
     .get(getScenes);
 
+    // Post scene
 app.route('/scene')
     .post(authenticate, saveScene);
 

@@ -3,9 +3,9 @@ const sql = require('mssql');
 const config = require('./config');
 const validator = require('validator')
 const clrs = require('colors');
-const fs = require('fs');
+// const fs = require('fs');
 const slug = require('slug');
-const uploadDir = __dirname + '/uploads/users/';
+const uploadDir = __dirname + '/uploads/';
 const jimp = require('jimp');
 
 require('dotenv').config();
@@ -50,12 +50,15 @@ const addFile = (file, req, res, pool=null) => {
             sql.close();
             throw err;
         };
+
         jimp.read((`${fullPath}`), (err, image) => {
             if (err) throw err;
-            image
-                .resize(jimp.AUTO, 600) // resize
+
+            image      
+                // .resize(600, jimp.AUTO) // resize
                 .quality(90) // set JPEG quality
                 .crop( 0, 0, 600, 600 )
+                // .greyscale()    
                 .write(`${fullPath}`); // save
 
             if (pool) {
@@ -76,7 +79,7 @@ const saveScene = async (req, res) => {
 
     try {
 
-        const imgUrl = `uploads/users/${file.name}`;
+        const imgUrl = `uploads/${file.name}`;
         const pool = await sql.connect(config);
         const slugString = slug(req.body.title).toLowerCase();
         const result = await pool.request()
@@ -119,7 +122,7 @@ const updateScene = async (req, res) => {
         if (req.files) {
             const file = req.files.imgFile;
             console.log('File', file)
-            const imgUrl = `uploads/users/${file.name}`;
+            const imgUrl = `uploads/${file.name}`;
             const result = await pool.request()
                 .query`
                     update VP3D.VILNIUS3D_SCENES
@@ -146,8 +149,12 @@ const updateScene = async (req, res) => {
                 `;
                 console.log('result', result);
                 
-                getScene(req, res, pool);
-                // res.status(200).json({ message: 'Scene updated',  success: true });
+                if (result.rowsAffected[0] === 1) {
+                    getScene(req, res, pool);
+                } else {
+                    res.status(204);
+                }
+
         }
 
     } catch (err) {
@@ -163,7 +170,6 @@ const deleteScene = function (req, res) {
         try {
             await sql.connect(config);
             console.log('DELETE by ID', req.body, req.params.id)
-            // sAdmin user can not be deleted
             const result = await sql.query`delete from VP3D.VILNIUS3D_SCENES where id = ${req.params.id}`;
             console.log(clrs.green(result))
             sql.close();
@@ -171,7 +177,7 @@ const deleteScene = function (req, res) {
         } catch (err) {
             console.log(err)
             sql.close();
-            res.status(400).send(err);
+            res.status(200).send({ message: 'Scene deleted', success: false });
         }
     })();
 };

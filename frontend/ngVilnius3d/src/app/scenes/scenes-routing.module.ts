@@ -9,16 +9,20 @@ const routes: Routes = [
   {
     path: '',
     component: HomeScenesComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   }, {
-    path: '',
+    path: 'scenos',
+    pathMatch: 'full',
+    redirectTo: '/'
+  }, {
+    path: 'scenos',
     children: [
       {
         path: '',
         component: ScenesComponent,
         children: [
           {
-            path: 'scenos/:slug',
+            path: ':slug',
             component: SceneComponent,
             pathMatch: 'full'
           },

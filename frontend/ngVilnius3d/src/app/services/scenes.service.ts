@@ -29,7 +29,7 @@ export class ScenesService {
 
   getSceneBySlug(slug: string): Observable<Scene> {
     return this.getScenes().pipe(
-      map(scenes => scenes.filter(sceneSingle => sceneSingle.slug === slug)[0])
+      map(scenes => scenes.filter(sceneSingle => sceneSingle.slug === slug)[0]),
     )
   }
 

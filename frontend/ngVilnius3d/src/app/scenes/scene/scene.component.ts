@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ScenesService } from 'src/app/services/scenes.service';
 import { Observable } from 'rxjs';
 import { Scene } from '../../models/scene.model';
@@ -23,7 +23,7 @@ export class SceneComponent implements OnInit, OnDestroy {
   @BlockUI('iframe__section') blockUI: NgBlockUI;
 
 
-  constructor(private route: ActivatedRoute, private scenesService: ScenesService, private scenesRoutingService: ScenesRoutingService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private scenesService: ScenesService, private scenesRoutingService: ScenesRoutingService) { }
 
   ngOnInit() {
     this.scene$ = this.route.paramMap.pipe(
@@ -36,7 +36,10 @@ export class SceneComponent implements OnInit, OnDestroy {
 
         this.scenesRoutingService.setCurrentSlug(params.get('slug'))
       }),
-      switchMap((params: ParamMap) => this.scenesService.getSceneBySlug(params.get('slug')))
+      switchMap((params: ParamMap) => this.scenesService.getSceneBySlug(params.get('slug'))),
+      tap((scene: Scene) => {
+        if (!scene) this.router.navigateByUrl('/')
+      })
     );
 
   }

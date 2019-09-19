@@ -3,9 +3,10 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { subscribeOn, distinctUntilChanged } from 'rxjs/operators';
+import { subscribeOn, distinctUntilChanged, catchError } from 'rxjs/operators';
 import { JwtService } from './jwt.service';
 import { ApiService } from './api.service';
+import { environment } from '../../environments/environment';
 
 // declare global google api const
 declare const gapi: any;
@@ -55,7 +56,7 @@ export class UserService {
       })
     }
 
-    this.http.post<any>('http://localhost:4200/auth', user.Zi, options)
+    this.http.post<any>(`${environment.urlExpress}/auth`, user.Zi, options)
       .subscribe((res) => {
         console.log('Express res', res);
         const token = res.token;
@@ -64,7 +65,7 @@ export class UserService {
         this.isAuthenticatedSubject.next(true);
         this.currentUserSubject.next(res);
         this.ngZone.run(() => {
-          this.router.navigate(['/admin/dashboard']);
+          this.router.navigate(['/admin']);
         });
       });
   }
@@ -72,8 +73,11 @@ export class UserService {
   googleLogOut() {
     const oAuth2Instance = gapi.auth2.getAuthInstance();
     if (oAuth2Instance) {
+      const user = oAuth2Instance.currentUser.get();
       oAuth2Instance.disconnect();
+
       oAuth2Instance.signOut().then(() => {
+        user.disconnect();
         this.ngZone.run(() => {
           console.log('Log out')
           this.router.navigate(['/login']);

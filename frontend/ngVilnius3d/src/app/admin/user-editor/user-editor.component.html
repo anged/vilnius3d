@@ -3,10 +3,11 @@
         <div class="row">
             <div class="col-md-10 col-xs-12">
                 <form #userForm="ngForm" (ngSubmit)="onSubmit()">
-                    <fieldset [disabled]="isSubmitting">
+                    <!-- <fieldset [disabled]="isSubmitting"> -->
+                    <fieldset>
 
                         <fieldset class="form-group">
-                            <label>Elektroninio pašto adresas</label>
+                            <label>{{ emailType | uppercase }} elektroninio pašto adresas </label>
                             <input class="form-control form-control-lg editor-page__title" [(ngModel)]="email"
                                 name="email" required type="email" email  [v3dEmailValidator]="emailType" #emailModel="ngModel" />
                             <div [hidden]="emailModel.valid || emailModel.pristine" class="alert alert-danger editor-page__error">

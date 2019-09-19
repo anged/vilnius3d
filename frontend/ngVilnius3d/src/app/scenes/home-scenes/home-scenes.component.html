@@ -3,10 +3,13 @@
 <div class="scenes">
     <ng-container *ngFor="let scene of scenes$ | async">
         <div class="scenes__item" [ngStyle]="{'background-image': setBg(scene.img)}">
-            <h2>{{ scene.title }}</h2>
-            <p>
-                {{ scene.description }}
-            </p>
+            <div class="scenes__item__content">
+                <h2>{{ scene.title }}</h2>
+                <p>
+                    {{ scene.description }}
+                </p>
+            </div>
+
             <a [routerLink]="['/scenos', scene.slug]" routerLinkActive="active">
                 <button type="button" class="btn btn-primary btn-lg">Žiūrėti</button>
             </a>

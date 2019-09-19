@@ -3,12 +3,18 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Rout
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { map, take } from 'rxjs/operators';
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { JwtService } from '../../services/jwt.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IsNotAuthenticatedGuard implements CanActivate {
-  constructor(private userService: UserService, private router: Router) { }
+  // TODO create DI
+  jwts: JwtHelperService;
+  constructor(private userService: UserService, private router: Router, private jwt: JwtService) {
+    this.jwts = new JwtHelperService();
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -18,15 +24,16 @@ export class IsNotAuthenticatedGuard implements CanActivate {
       take(1),
       // Can activate if user is not authenticated
       map(isAuth => {
+        const token = this.jwt.getToken();
+        const isExpired = this.jwts.isTokenExpired(token);
         console.log('guard', isAuth)
-        if (isAuth) {
+        if (isAuth && !isExpired) {
           this.router.navigate(['/admin/dashboard']);
         }
 
-        return !isAuth;
+        return !isAuth || isExpired;
       })
     )
   }
-
   
 }

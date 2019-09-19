@@ -4,7 +4,7 @@
             <div class="col-md-10 col-xs-12">
                 <form [formGroup]="sceneForm" (ngSubmit)="onSubmit()">
 
-                    <fieldset [disabled]="isSubmitting">
+                    <fieldset [disabled]="isFormSubmitting">
 
                         <fieldset class="form-group">
                             <label>Pavadinimas</label>
@@ -19,7 +19,10 @@
 
                         <fieldset class="form-group">
                             <label>Scenos nuoroda</label>
-                            <input class="form-control" formControlName="scene" type="text" />
+                            <input class="form-control" formControlName="scene" placeholder="https://" type="text" />
+                            <div class="alert alert-warning" role="alert" *ngIf="sceneForm.controls.scene && sceneForm.controls.scene?.invalid && (sceneForm.controls.scene.dirty || sceneForm.controls.scene.touched)">
+                                Nuorodo privalo būti saugi ir prasidėti https
+                            </div>
                         </fieldset>
 
                         <fieldset class="form-group">
@@ -32,9 +35,9 @@
                         </fieldset>
 
                         <fieldset class="form-group">
-                            <label *ngIf="!imageUrl">Paveiksliukas</label>
+                            <label *ngIf="!imageUrl">Paveiksliukas (jpg | png)</label>
                             <label *ngIf="imageUrl">Keisti paveiksliuką</label>
-                            <input class="form-control-file" (change)="onFileChange($event)" type="file" name="file" />
+                            <input #fileInput class="form-control-file" (change)="onFileChange($event)" type="file" name="file" />
                         </fieldset>
 
                         <div *ngIf="sceneForm.get('img')?.value && sceneForm.get('img').errors?.fileValidator"
@@ -45,10 +48,12 @@
                         <p>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                                 <path [attr.d]="iconMark" />
-                            </svg><span>Laukai privalo būti užpildyti</span>
+                            </svg><span>Visi laukai privalo būti užpildyti</span>
                         </p>
 
-
+                        <div class="progress" *ngIf="isFormSubmitting">
+                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
 
                         <button class="btn btn-lg btn-primary" type="submit" [disabled]="!sceneForm.valid">
                             <ng-container *ngIf="!imageUrl; else Resave">Išsaugoti</ng-container>
@@ -70,9 +75,6 @@
                     </fieldset>
                 </form>
             </div>
-
-            <alert *ngIf="success" class="editor-page__alert" type="success" dismissOnTimeout="10000" dismissible="true">Scena sėkmingai įkelta / atnaujinta</alert>
-
         </div>
     </div>
 </div>

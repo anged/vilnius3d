@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { trigger, state, transition, animate, style } from '@angular/animations';
 
@@ -9,24 +9,10 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
   animations: [
     trigger('sidebarAnimation', [
       state('open', style({
-        transform: 'translateX(0%)'
+        transform: 'translateX(0)'
       })),
       state('close', style({
-        transform: 'translateX(-100%)'
-      })),
-      transition('open => close', [
-        animate('0.2s')
-      ]),
-      transition('close => open', [
-        animate('0.2s')
-      ]),
-    ]),
-    trigger('sceneAnimation', [
-      state('open', style({
-        width: 'calc(100% - 300px)'
-      })),
-      state('close', style({
-        width: '100%'
+        transform: 'translateX(-300px)'
       })),
       transition('open => close', [
         animate('0.2s')
@@ -38,7 +24,8 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
   ]
 })
 export class ScenesComponent implements OnInit {
-  isSidebarActive = true;
+  isSidebarActive = false;
+  currentActiveScene: string;
   constructor() { }
 
   ngOnInit() {
@@ -47,4 +34,15 @@ export class ScenesComponent implements OnInit {
   toggleSidebar() {
     this.isSidebarActive = !this.isSidebarActive; 
   }
+
+  activeScene(event) {
+    // Close sidebar when new scene is activated in mobile
+    if (this.currentActiveScene !== event) {
+      this.isSidebarActive = false;
+    }
+    
+    this.currentActiveScene = event;
+    console.log(event);
+  }
+
 }

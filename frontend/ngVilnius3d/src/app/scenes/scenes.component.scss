@@ -1,8 +1,18 @@
+@import '~src/styles/variables';
+@import '~bootstrap/scss/bootstrap';
+
 .sidebar--left {
+    position: relative;
     width: 300px;
     min-height: 100vh;
-    background-color: rgba(237, 237, 237, 0.30);
+    background-color:$white;
     float: left;
+    z-index: 1;
+
+    @include media-breakpoint-up(sm) {
+        transform: translateX(0px) !important;
+    }
+
 }
 
 nav {
@@ -11,8 +21,29 @@ nav {
 }
 
 .scene__container {
-    width: calc(100% - 300px);
+    width: 100%;
     position: absolute;
     right: 0;
     top: 0;
+    z-index: 0;
+
+    @include media-breakpoint-up(sm) {
+        width: calc(100% - 300px);
+    }
+
+}
+
+button:focus {
+    outline: none;
+}
+
+.hamburger {
+    height: 50px;
+    width: 50px;
+    background-color:$white;
+
+    @include media-breakpoint-up(sm) {
+        display: none;
+    }
+
 }

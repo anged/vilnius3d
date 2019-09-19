@@ -4,6 +4,9 @@
 @import 'mixins';
 @import '~bootstrap/scss/bootstrap';
 
+// regular style toast
+@import '~ngx-toastr/toastr';
+
 // Global
 a {
   text-decoration: none;
@@ -53,18 +56,24 @@ a:hover {
   background-color: rgba(0, 0, 0, 0.35);
 }
 
-.panel-heading .btn {
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  text-align: left;
+.panel-heading {
+  z-index: 1;
+
+  .btn {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+  }
+  
 }
 
 // Breacrumb
 .breadcrumb {
   background: none;
 }
+
 .breadcrumb-item::before {
   display: none;
   content: none;

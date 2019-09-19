@@ -28,6 +28,7 @@ svg {
     vertical-align: middle;
     font-size: 0.925rem;
     color: #595d6e;
+    overflow-wrap: break-word;
 
     &__item {
         margin-bottom: 1rem;
@@ -36,6 +37,10 @@ svg {
     img {
         width: 100%;
         border-radius: 20%;
+    }
+
+    a {   
+        border-bottom: 1px solid #ed5e68;
     }
 
     &__update {

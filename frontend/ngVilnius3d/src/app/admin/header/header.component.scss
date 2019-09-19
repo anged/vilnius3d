@@ -39,3 +39,10 @@ nav {
 
     &:hover { cursor: pointer; }
 }
+
+.navbar-nav {
+    &__profile {
+        margin-left: auto;
+    }
+    
+}

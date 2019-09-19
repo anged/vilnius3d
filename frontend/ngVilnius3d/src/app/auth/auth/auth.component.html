@@ -4,8 +4,11 @@
 <h1 class="h3 mb-3">Prisijunkite prie Vilnius 3D</h1>
 <p>
     <a class="auth__login" (click)="login()">
-        <img src="./assets/btn_google_light_normal_ios.svg" alt="">
+        <img src="./assets/btn_google_light_normal_ios.svg" alt="Google paskyra">
         Prisijungti su Google paskyra
     </a>
 </p>
+<div *ngIf="expired" class="alert alert-secondary" role="alert">
+    Sesijos laikas baigėsi, prisijunkite iš naujo
+</div>
 <p class="mt-5 mb-3 text-muted">&copy; {{ date }}</p>

@@ -1,26 +1,31 @@
+@import '~bootstrap/scss/bootstrap';
+
 h1 {
     color: #e72d34;
     font-weight: 400;
-    font-size: 32px;
     letter-spacing: -1px;
+    font-size: 20px;
+
+    @include media-breakpoint-up(sm) {
+        font-size: 32px;
+    }
 }
 
 .header {
     &__logo {
         display: inline-block;
-        // background: #e61c24ed;
         height: 100px;
         width: auto;
-        // margin: 10px;
     }
 
     &__img {
+        margin-left: 20px;
         padding: 20px 10px 10px 20px;
         width: 100px;
     }
 
     &__title {
-        width: calc(100% - 100px);
+        width: calc(100% - 120px);
         float: right;
         padding: 30px 10px 0;
     }

@@ -5,11 +5,13 @@
                 <span class="badge badge-primary">Aktyvuota</span>
             </div>
             <accordion-group [heading]="scene.title" [isOpen]="scenesRoutingService.slug === scene.slug">
-                <p>
-                    {{ scene.description }}
-                </p>
+                <div class="accordion__main__content">
+                    <p>
+                        {{ scene.description }}
+                    </p>
+                </div>
                 <div class="accordion__button" *ngIf="scenesRoutingService.slug !== scene.slug">
-                    <a [routerLink]="['/scenos', scene.slug]" routerLinkActive="active">
+                    <a [routerLink]="['/scenos', scene.slug]" routerLinkActive="active" (click)="activateScene(scene.slug)">
                         <button type="button" class="btn btn-primary btn-lg">Žiūrėti</button>
                     </a>
                 </div>

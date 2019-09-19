@@ -5,18 +5,24 @@ const clrs = require('colors');
 const fs = require('fs');
 const https = require('https');
 const uploadDir = __dirname + '/uploads/users/';
+const download = require('image-downloader')
+
 
 require('dotenv').config();
 
 // Basic SQL cmnds: https://www.codecademy.com/articles/sql-commands
 
 const saveUserImage = async (url, id) => {
-    const filePath = `${uploadDir}${id}.jpg`
-    const fileStream = fs.createWriteStream(filePath);
+    const dest = `${uploadDir}${id}.jpg`
     // save cropped s100-c size
-    await https.get(url, (res) => {
-        res.pipe(fileStream);
-    });
+    try {
+        const { filename, image } = await download.image({url, dest})
+        console.log(filename) // => /path/to/dest/image.jpg
+        return;
+      } catch (e) {
+        console.error(e)
+      }
+
 }
 
 const addDBFullUserData = async (pool, profile) => {
@@ -44,8 +50,8 @@ const getDBUser = async (profile) => {
         // we must assgin full properties for authorized user at first authentication 
         if (result.recordset[0] && !result.recordset[0].name || result.recordset[0] && validator.isEmpty(result.recordset[0].name, { ignore_whitespace: true })) {
             console.log(clrs.bgRed('NAME IS EMPTY 1'), result.recordset[0].name);
+            await saveUserImage(profile._json.picture, profile.id);
             await addDBFullUserData(pool, profile);
-            await saveUserImage(profile._json.picture, profile.id)
             // select renewed user with full data
             result = await pool.request().query`select * from VP3D.VILNIUS3D_USERS where email = ${profile.emails[0].value} `;
         }
@@ -55,22 +61,24 @@ const getDBUser = async (profile) => {
         sql.close();
         return result.recordset[0];
     } catch (err) {
+        sql.close();
         // ... error checks
         console.error(err);
     }
 };
 
-const getDBUsers = (req, res, next) => {
-    (async () => {
-        try {
-            await sql.connect(config);
-            const result = await sql.query`select * from VP3D.VILNIUS3D_USERS`;
-            sql.close();
-            res.json(result.recordset);
-        } catch (err) {
-            res.status(400).send(err);
-        }
-    })();
+const getDBUsers = async (req, res, next) => {
+
+    try {
+        await sql.connect(config);
+        const result = await sql.query`select * from VP3D.VILNIUS3D_USERS`;
+        sql.close();
+        res.json(result.recordset);
+    } catch (err) {
+        sql.close();
+        console.log(err)
+        res.status(400).send(err);
+    }
 };
 
 const deleteDBUser = (req, res, next) => {
@@ -86,6 +94,7 @@ const deleteDBUser = (req, res, next) => {
             res.status(200).send({ message: 'User deleted', success: true});
         } catch (err) {
             console.log(err)
+            sql.close();
             res.status(400).send(err);
         }
     })();
@@ -101,7 +110,7 @@ const createDBUser = (req, res, next) => {
             console.log(currentUser)
             if (currentUser.recordset[0]) {
                 sql.close();
-                res.status(200).send({ message: 'User exists', success: false });
+                res.status(200).send({ message: 'User exists', success: false, userExists: true });
             } else {
                 const result = await pool.request()
                     .input('email', sql.NVarChar, req.body.email)
@@ -126,6 +135,7 @@ const createDBUser = (req, res, next) => {
 
         } catch (err) {
             console.log(err);
+            sql.close();
             res.status(400).send(err);
         }
     })();

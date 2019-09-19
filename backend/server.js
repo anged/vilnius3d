@@ -6,9 +6,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const fileUpload = require('express-fileupload');
-var fs = require('fs');
+const fs = require('fs');
 const uploadDir = __dirname + '/uploads';
-
+const nocache = require('nocache')
 const { createDBUser, getDBUsers, deleteDBUser } = require('./users');
 const { getScenes, saveScene, updateScene, deleteScene } = require('./scenes');
 
@@ -25,12 +25,17 @@ require('dotenv').config();
 // Require passport config
 require('./passport');
 
+app.use(nocache())
+
 app.use(cors(corsOptions));
 
 app.use(fileUpload());
 
-app.use('/uploads', express.static('uploads'));
-app.use('/uploads/users', express.static('uploads/users'));
+// In prod env we store node files in 'app' subdirectory
+app.use('/', express.static('../'));
+
+app.use('/api/uploads', express.static('uploads'));
+app.use('/api/uploads/users', express.static('uploads/users'));
 
 // Parses the text as JSON and exposes the resulting object on req.body
 app.use(bodyParser.json({
@@ -60,7 +65,7 @@ const addToken = (req, res) => {
     res.status(200).send({ ...req.authUser, token: token });
 };
 
-app.route('/auth')
+app.route('/api/auth')
     .post(passport.authenticate('google-token', {
         session: false
     }), (req, res, next) => {
@@ -101,7 +106,7 @@ const getCurrentUser = function (req, res, next) {
     res.json(req.user)
 };
 
-app.route('/auth/user')
+app.route('/api/auth/user')
     .get(authenticate, getCurrentUser);
 
 // ------------------------- //
@@ -111,32 +116,32 @@ app.route('/auth/user')
 // ------------------------- //
 
 // Get users
-app.route('/users')
+app.route('/api/users')
     .get(authenticate, getDBUsers)
 
 
 // Post user
-app.route('/user')
+app.route('/api/user')
     // .post(authenticate, saveUser);
     .post(authenticate, createDBUser);
 
 // Delete user
-app.route('/user/:id')
+app.route('/api/user/:id')
     .delete(authenticate, deleteDBUser);
 
 // ------------------------- //
 
 // GET scenes
-app.route('/scenes')
+app.route('/api/scenes')
     // .get(authenticate, getScenes);
     .get(getScenes);
 
     // Post scene
-app.route('/scene')
+app.route('/api/scene')
     .post(authenticate, saveScene);
 
 // Update / Delete scene
-app.route('/scene/:id')
+app.route('/api/scene/:id')
     .put(authenticate, updateScene)
     .delete(authenticate, deleteScene);
 

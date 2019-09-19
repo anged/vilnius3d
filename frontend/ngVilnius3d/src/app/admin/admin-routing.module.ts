@@ -66,11 +66,12 @@ const routes: Routes = [
             data: { breadcrumb: 'Vartotojo profilis' }
           }
         ]
-      }
+      }, 
+      // {
+      //   path: '**',
+      //   redirectTo: ''
+      // }
     ]
-  }, {
-    path: '**',
-    redirectTo: 'login'
   }
 ];
 

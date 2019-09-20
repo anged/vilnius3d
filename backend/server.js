@@ -8,14 +8,16 @@ const app = express();
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const uploadDir = __dirname + '/uploads';
-const nocache = require('nocache')
+const nocache = require('nocache');
+const path = require('path');
+
 const { createDBUser, getDBUsers, deleteDBUser } = require('./users');
 const { getScenes, saveScene, updateScene, deleteScene } = require('./scenes');
-
+const isDev = process.env.NODE_ENV === 'development';
 const clrs = require('colors');
 const PORT = process.env.PORT || 4200;
 const corsOptions = {
-    origin: '*',
+    origin: isDev ? process.env.VILNIUS3D_DEV_ORIGIN : process.env.VILNIUS3D_PROD_ORIGIN,
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
     credentials: true
 };
@@ -31,7 +33,7 @@ app.use(cors(corsOptions));
 
 app.use(fileUpload());
 
-// In prod env we store node files in 'app' subdirectory
+// In prod env we store node files in 'api' subdirectory
 app.use('/', express.static('../'));
 
 app.use('/api/uploads', express.static('uploads'));
@@ -56,7 +58,7 @@ const addToken = (req, res) => {
         img: req.authUser.img
     }, process.env.VILNIUS3D_SECRET,
         {
-            expiresIn: 60 * 120
+            expiresIn: 60 * 60 * 2
             // expiresIn: 60
         });
 
@@ -145,6 +147,11 @@ app.route('/api/scene/:id')
     .put(authenticate, updateScene)
     .delete(authenticate, deleteScene);
 
+// get all routes in prod, unless its api route
+app.route('*')
+    .get((req,res) => {
+        res.sendFile(path.join(__dirname + '/../index.html'));
+    });
 
 app.listen(PORT, () => {
     // Check if upload dir exists

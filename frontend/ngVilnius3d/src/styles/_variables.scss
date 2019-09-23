@@ -2,7 +2,7 @@
 
 $red: #e72d34;
 
-$darkBlue: #02214a;
+$darkBlue: #044090;
 
 $theme-colors: (
   "primary": $red,
@@ -23,26 +23,4 @@ $button-link-hover-color: $white;
 $grid-columns:      12;
 $grid-gutter-width: 30px;
 
-$grid-breakpoints: (
-  // Extra small screen / phone
-  xs: 0,
-  // Small screen / phone
-  sm: 576px,
-  // Medium screen / tablet
-  md: 768px,
-  // Large screen / desktop
-  lg: 992px,
-  // Extra large screen / wide desktop
-  xl: 1200px
-);
-
-
-$bgColor: rgba($darkBlue, 0.8);
-
-
-// TEMP
-$container-max-widths: (
-  sm: 960px,
-  md: 960px,
-  lg: 960px,
-)
+$bgColor: rgba($darkBlue, 0.9);

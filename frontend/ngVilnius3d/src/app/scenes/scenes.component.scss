@@ -4,10 +4,12 @@
 .sidebar--left {
     position: relative;
     width: 300px;
-    min-height: 100vh;
+    height: 100vh;
     background-color:$white;
     float: left;
     z-index: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     @include media-breakpoint-up(sm) {
         transform: translateX(0px) !important;
@@ -22,10 +24,12 @@ nav {
 
 .scene__container {
     width: 100%;
+    height: 100vh;
     position: absolute;
     right: 0;
     top: 0;
     z-index: 0;
+    overflow: hidden;
 
     @include media-breakpoint-up(sm) {
         width: calc(100% - 300px);

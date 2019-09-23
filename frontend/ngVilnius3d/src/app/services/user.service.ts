@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, of, throwError, Observable, Subject } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -19,6 +19,9 @@ export class UserService {
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   // private isAuthenticatedSubject = new BehaviorSubject(false);
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+
+  private isRejectedUserSubject = new Subject<boolean>();
+  isRejectedUser$ = this.isRejectedUserSubject.asObservable();
 
   private currentUserSubject = new BehaviorSubject<User>({} as User);
   currentUser$ = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
@@ -56,7 +59,13 @@ export class UserService {
       })
     }
 
-    this.http.post<any>(`${environment.urlExpress}/auth`, user.Zi, options)
+    this.http.post<any>(`${environment.urlExpress}/auth`, user.Zi, options).pipe(
+        catchError((err) =>  {
+          console.warn('ER', err)
+          this.isRejectedUserSubject.next(true)
+          return throwError(err);
+        })
+      )
       .subscribe((res) => {
         console.log('Express res', res);
         const token = res.token;

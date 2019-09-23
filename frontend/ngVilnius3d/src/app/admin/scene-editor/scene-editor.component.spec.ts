@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SceneEditorComponent } from './scene-editor.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BreadcrumbService } from 'angular-crumbs';
+import { HttpClient } from '@angular/common/http';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 
 describe('SceneEditorComponent', () => {
   let component: SceneEditorComponent;
@@ -8,7 +14,12 @@ describe('SceneEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SceneEditorComponent ]
+      declarations: [ SceneEditorComponent ],
+      providers: [ BreadcrumbService, 
+      { provide: BsModalService, useValue: {} }, 
+      { provide: ToastrService, useValue: {} }, 
+      { provide: HttpClient, useValue: {} } ],
+      imports: [ ReactiveFormsModule, RouterTestingModule ]
     })
     .compileComponents();
   }));

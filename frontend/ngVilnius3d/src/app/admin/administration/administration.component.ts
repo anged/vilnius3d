@@ -8,10 +8,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AdministrationComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor() { }
 
   ngOnInit() {
-    // this.userService.populate();
   }
 
 }

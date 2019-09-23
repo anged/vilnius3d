@@ -9,7 +9,7 @@ import { filter, distinctUntilChanged, shareReplay, tap } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ngVilnius3d';
+  title = '3D Vilnius';
 
   constructor(private userService: UserService, private router: Router) { }
 

@@ -29,6 +29,7 @@ p {
     border: 1px solid #c5c5c5;
     display: inline-block;
     height: 45px;
+    min-width: 245px;
     overflow: hidden;
     padding: 0 10px;
     border-radius: $border-radius;
@@ -37,4 +38,9 @@ p {
     &:hover {
         border-color: #888383;
     }
+}
+
+.progress {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

@@ -10,5 +10,16 @@
 </p>
 <div *ngIf="expired" class="alert alert-secondary" role="alert">
     Sesijos laikas baigėsi, prisijunkite iš naujo
+
 </div>
+
+
+<div *ngIf="isUserRejected" class="alert alert-warning" role="alert">
+    Neturite teisių prisijungti prie sistemos
+</div>
+
 <p class="mt-5 mb-3 text-muted">&copy; {{ date }}</p>
+
+<div class="progress" *ngIf="isAuthenticating">
+    <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>

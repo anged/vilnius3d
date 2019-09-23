@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'grid';
 @import 'blocker';
 @import 'hburgers';
 @import 'mixins';
@@ -16,6 +17,7 @@ a {
 a:hover {
   text-decoration: none;
 }
+
 
 .navbar-nav .dropdown-menu {
   position: absolute;
@@ -46,15 +48,7 @@ a:hover {
     }
   
 }
-  
-.card {
-    background: none;
-    overflow: hidden;
-}
 
-.card-header {
-  background-color: rgba(0, 0, 0, 0.35);
-}
 
 .panel-heading {
   z-index: 1;
@@ -82,4 +76,21 @@ a:hover {
 .breadcrumb-item {
   padding-left: 0;
   padding-right: 0.5rem;
+}
+
+// Badge
+.badge-primary {
+  font-size: 60%;
+}
+
+// Cards
+.card-header {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.card {
+  background: none;
+
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
 }

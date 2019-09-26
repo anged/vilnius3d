@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 export class HomeScenesComponent implements OnInit {
   scenes$: Observable<Scene[]>;
   imgPath = environment.urlExpress;
-
+  defaultImage = '/assets/img/default.jpg'
   constructor(private scenesService: ScenesService) { }
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class HomeScenesComponent implements OnInit {
   }
 
   setBg(img: string): string {
-    return  `url(${this.imgPath}/${img})`;
+    return  this.imgPath + '/' + img;
   }
 
 }

@@ -10,11 +10,12 @@ import { ScenesService } from '../../services/scenes.service';
 import { ScenesRoutingService } from '../scenes-routing.service';
 import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SceneComponent', () => {
   let component: SceneComponent;
   let fixture: ComponentFixture<SceneComponent>;
-  let scenesService: ScenesService;
+  let scenesServiceSpy = jasmine.createSpyObj('ScenesService', ['getSceneBySlug']);
 
   const fakeScene = {
     'id': 1,
@@ -35,8 +36,9 @@ describe('SceneComponent', () => {
           useValue: { paramMap: of(convertToParamMap({slug: 'bendrojo-plano-3d-zemelapis'})) }
         }, 
         { provide: HttpClient, useValue: {} },
-        ScenesService      ],
-      imports: [ CommonModule, BlockUIModule.forRoot()]
+        { provide: ScenesService, useValue: scenesServiceSpy }
+      ],
+      imports: [ RouterTestingModule, CommonModule, BlockUIModule.forRoot()]
     })
     .compileComponents();
   }));
@@ -44,7 +46,7 @@ describe('SceneComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SceneComponent);
     component = fixture.componentInstance;
-    scenesService = TestBed.get(ScenesService);
+    scenesServiceSpy = TestBed.get(ScenesService);
     // don't run detectChanges before spying
     // fixture.detectChanges();
   });
@@ -54,10 +56,10 @@ describe('SceneComponent', () => {
   });
 
   it('should have scene', () => {
-    const spy = spyOn(scenesService, 'getScene').and.returnValue(of(fakeScene))
+    const spy = scenesServiceSpy.getSceneBySlug.and.returnValue(of(fakeScene))
     component.ngOnInit();
     component.scene$.subscribe((scene) => {
-      console.log('SCENE', scene)
+      console.log('SCENE:', scene)
       expect(scene).toEqual(fakeScene);
       expect(spy).toHaveBeenCalledTimes(1);
     })

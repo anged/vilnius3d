@@ -4,11 +4,16 @@
 @import 'hburgers';
 @import 'mixins';
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700&display=swap&subset=latin-ext');
 
 // regular style toast
 @import '~ngx-toastr/toastr';
 
 // Global
+body {
+  font-family: 'Titillium Web', sans-serif;
+}
+
 a {
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
@@ -18,18 +23,33 @@ a:hover {
   text-decoration: none;
 }
 
+h1 {
+  color: #fff;
+}
+
+.sidebar--left h1 {
+  color: #e72d34;
+}
+
 
 .navbar-nav .dropdown-menu {
   position: absolute;
 }
 
+.panel .btn-link {
+  color: rgba($dark, 0.4);
+}
+.panel-open .btn-link {
+  color: $dark;
+}
+
 .btn-link {
     font-weight: $font-weight-normal;
-    color: $btn-link-color;
+    color: $dark;
     text-decoration: $link-decoration;
   
     @include hover {
-      color: $button-link-hover-color;
+      color: $dark;
       text-decoration: none;
     }
 
@@ -49,18 +69,35 @@ a:hover {
   
 }
 
-
 .panel-heading {
   z-index: 1;
 
   .btn {
     padding-left: 0;
     padding-right: 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
     text-align: left;
+    font-weight: 600;
+    line-height: 1.4;
+    font-size: 16px;
+    letter-spacing: -0.01rem;
   }
   
+}
+
+
+
+.sidebar--left .panel-heading {
+
+  .btn {
+    padding-right: 15px;
+  }
+  
+}
+
+.sidebar--left header {
+  background: $sidebarHeaderlight;
 }
 
 // Breacrumb
@@ -84,18 +121,34 @@ a:hover {
 }
 
 // Cards
+.accordion__main {
+  .accordion__main__bg:first-child .card {
+    border: 0;
+  }
+
+}
+
 .card-header {
-  background-color: rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 10px;
+  background: none;
+  border-bottom: 0;
+}
+
+.card-body {
+  padding: 10px;
 }
 
 .card {
   background: none;
-
   border: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
+
 }
 
 // Hambuerger icon
+.hamburger {
+  background-color: $sidebarHeaderlight !important;
+}
 .hamburger:hover {
-  opacity: 1;
+  opacity: 1 !important;
 }

@@ -10,6 +10,8 @@
     z-index: 1;
     overflow-x: hidden;
     overflow-y: auto;
+    // background-image: url('/assets/img/bg.jpg');
+    // background-size: cover;
 
     @include media-breakpoint-up(sm) {
         transform: translateX(0px) !important;

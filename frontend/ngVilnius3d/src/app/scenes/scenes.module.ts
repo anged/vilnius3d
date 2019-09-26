@@ -10,6 +10,7 @@ import { HeaderComponent } from '../header.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { LazyLoadImageModule } from 'ng-lazyload-image'; // <-- import it
 
 import { SharedModule } from '../shared/shared.module';
 import { HomeScenesComponent } from './home-scenes/home-scenes.component';
@@ -20,7 +21,8 @@ import { HomeScenesComponent } from './home-scenes/home-scenes.component';
     ScenesRoutingModule,
     BrowserAnimationsModule,
     AccordionModule.forRoot(),
-    SharedModule
+    SharedModule,
+    LazyLoadImageModule
   ]
 })
 export class ScenesModule { }

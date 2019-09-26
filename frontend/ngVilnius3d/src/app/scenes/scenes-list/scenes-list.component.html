@@ -1,17 +1,21 @@
 <accordion class="accordion__main" [isAnimated]="true" [closeOthers]="true">
     <ng-container *ngFor="let scene of scenes$ | async">
-        <div class="accordion__main__bg" [ngStyle]="{'background-image': setBg(scene.img)}">
+        <div class="accordion__main__bg">
             <div class="accordion--active" *ngIf="scenesRoutingService.slug === scene.slug">
-                <span class="badge badge-primary">Aktyvuota</span>
+                <span class="badge badge-primary"> </span>
             </div>
             <accordion-group [heading]="scene.title" [isOpen]="scenesRoutingService.slug === scene.slug">
                 <div class="accordion__main__content">
+                    <div class="accordion__main__content__image">
+                        <img  [src]="setBg(scene.img)" [alt]="scene.title">
+                    </div>
                     <p>
                         {{ scene.description }}
                     </p>
                 </div>
                 <div class="accordion__button" *ngIf="scenesRoutingService.slug !== scene.slug">
-                    <a [routerLink]="['/scenos', scene.slug]" routerLinkActive="active" (click)="activateScene(scene.slug)">
+                    <a [routerLink]="['/scenos', scene.slug]" routerLinkActive="active"
+                        (click)="activateScene(scene.slug)">
                         <button type="button" class="btn btn-primary btn-lg">Žiūrėti</button>
                     </a>
                 </div>

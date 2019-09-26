@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { shareReplay } from 'rxjs/operators';
 import { ApiService } from './api.service';
+import { Message } from '../models/message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +22,12 @@ export class UsersService {
     // );
   }
 
-  createUser(email: string): Observable<User> {
+  createUser(email: string): Observable<Message> {
     console.log(email)
     return this.apiService.postExpress('/user', JSON.stringify({ email }));
   }
 
-  deleteUser(id): Observable<User> {
+  deleteUser(id): Observable<Message> {
     return this.apiService.deleteExpress(`/user/${id}`);
   }
   

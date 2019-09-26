@@ -4,7 +4,7 @@ import { ScenesComponent } from './scenes.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('ScenesComponent', () => {
+describe('ScenesPublicComponent', () => {
   let component: ScenesComponent;
   let fixture: ComponentFixture<ScenesComponent>;
 
@@ -23,7 +23,16 @@ describe('ScenesComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create and sidebar not activated', () => {
+    console.log('ScenesPublicComponent', component);
+    expect(component).toBeDefined();
+    expect(component.isSidebarActive).toBeFalsy();
+  });
+
+  it('should toggle sidebar state', () => {
+    component.toggleSidebar();
+    expect(component.isSidebarActive).toBe(true, 'true at first');
+    component.toggleSidebar();
+    expect(component.isSidebarActive).toBe(false, 'false at second toggle');
   });
 });

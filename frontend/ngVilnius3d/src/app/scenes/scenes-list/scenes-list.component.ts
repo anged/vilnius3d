@@ -15,6 +15,7 @@ export class ScenesListComponent implements OnInit {
   @Output() changeScene = new EventEmitter<string>();
   scenes$: Observable<Scene[]>;
   imgPath = environment.urlExpress;
+  defaultImage = '/assets/img/default.jpg'
 
   constructor(private scenesService: ScenesService, private scenesRoutingService: ScenesRoutingService) { }
 
@@ -23,7 +24,7 @@ export class ScenesListComponent implements OnInit {
   }
 
   setBg(img: string): string {
-    return  `url(${this.imgPath}/${img})`;
+    return  this.imgPath + '/' + img;
   }
 
   activateScene(slug: string) {

@@ -1,6 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { trigger, state, transition, animate, style } from '@angular/animations';
+import { Observable } from 'rxjs';
+import { Scene } from '../models/scene.model';
+import { ScenesService } from '../services/scenes.service';
 
 @Component({
   selector: 'v3d-scenes',
@@ -24,11 +27,13 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
   ]
 })
 export class ScenesComponent implements OnInit {
+  scenes$: Observable<Scene[]>;
   isSidebarActive = false;
   currentActiveScene: string;
-  constructor() { }
+  constructor(private scenesService: ScenesService) { }
 
   ngOnInit() {
+    this.scenes$ = this.scenesService.getScenes();
   }
 
   toggleSidebar() {
@@ -42,7 +47,6 @@ export class ScenesComponent implements OnInit {
     }
     
     this.currentActiveScene = event;
-    console.log(event);
   }
 
 }

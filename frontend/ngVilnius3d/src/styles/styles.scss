@@ -1,17 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap&subset=latin-ext');
+
 @import 'variables';
 @import 'grid';
 @import 'blocker';
 @import 'hburgers';
 @import 'mixins';
+@import 'animation';
 @import '~bootstrap/scss/bootstrap';
-@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700&display=swap&subset=latin-ext');
+@import '~swiper/swiper';
 
 // regular style toast
 @import '~ngx-toastr/toastr';
 
 // Global
-body {
-  font-family: 'Titillium Web', sans-serif;
+body, h1, h2, h3 {
+  font-family: "Open Sans", sans-serif;
+}
+
+p, a {
+  font-family: 'Open Sans', sans-serif;
 }
 
 a {
@@ -27,20 +34,20 @@ h1 {
   color: #fff;
 }
 
-.sidebar--left h1 {
-  color: #e72d34;
-}
-
 
 .navbar-nav .dropdown-menu {
   position: absolute;
 }
 
 .panel .btn-link {
-  color: rgba($dark, 0.4);
+  color: rgba($dark, 0.7);
 }
 .panel-open .btn-link {
   color: $dark;
+}
+
+.btn {
+  font-weight: 600;
 }
 
 .btn-link {
@@ -80,8 +87,9 @@ h1 {
     text-align: left;
     font-weight: 600;
     line-height: 1.4;
-    font-size: 16px;
-    letter-spacing: -0.01rem;
+    font-size: 15px;
+    letter-spacing: -0.5px;
+    -webkit-font-smoothing: antialiased;
   }
   
 }
@@ -98,6 +106,7 @@ h1 {
 
 .sidebar--left header {
   background: $sidebarHeaderlight;
+  background: linear-gradient(0deg, rgba(44,53,61,1) 0%, rgba(44,53,61,0.85) 100%);
 }
 
 // Breacrumb
@@ -129,7 +138,7 @@ h1 {
 }
 
 .card-header {
-  padding: 0.75rem 10px;
+  padding: 0.75rem 20px;
   background: none;
   border-bottom: 0;
 }
@@ -148,7 +157,34 @@ h1 {
 // Hambuerger icon
 .hamburger {
   background-color: $sidebarHeaderlight !important;
+  background: linear-gradient(0deg, #3c444c 0%, #4b5259 100%) !important;
 }
 .hamburger:hover {
   opacity: 1 !important;
+}
+
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after, 
+.hamburger.is-active .hamburger-inner, .hamburger.is-active .hamburger-inner::before, .hamburger.is-active .hamburger-inner::after {
+  background-color: #ffffff;
+}
+
+
+// Swiper / mobile
+.swiper-container {
+  overflow-x: hidden
+}
+
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal > .swiper-pagination-bullets {
+  bottom: -5px !important;
+  bottom: inherit;
+  left: 0;
+  width: 100%;
+}
+
+.swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+  --swiper-theme-color: #e82b35;
+}
+
+.vilnius-block .block-ui-wrapper {
+  background: rgba(36, 43, 49, 0.8) !important;
 }

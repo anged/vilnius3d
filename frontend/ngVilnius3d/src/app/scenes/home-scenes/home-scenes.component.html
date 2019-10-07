@@ -1,27 +1,61 @@
+<div class="vilnius-r animate-bg"></div>
+
 <v3d-header></v3d-header>
 
-<div class="vilnius-video">
-    <video class="vilnius-video--fullscreen" playsInline autoplay="true" loop="true" width="auto">
-        <source src="/assets/video/vilniustrim.mp4" type="video/mp4">
-    </video>
-</div>
+<div class="vilnius-block" *blockUI="'home__section'" (resized)="onResized($event)"></div>
 
-<div class="scenes">
+<div class="scenes" *ngIf="screenWidth > 420; else ScenesMobile">
     <ng-container *ngFor="let scene of scenes$ | async">
         <div class="scenes__item">
             <div class="scenes__item__content">
-                <div class="scenes__item__image">
-                    <img  [defaultImage]="defaultImage" [lazyLoad]="setBg(scene.img)" [alt]="scene.title" srcset="">
-                </div>
-                <h2>{{ scene.title }}</h2>
-                <p>
-                    {{ scene.description }}
-                </p>
-            </div>
+                <div class="scenes__item__wrapper">
+                    <div class="scenes__item__text">
+                        <h2>{{ scene.title }}</h2>
+                        <p>
+                            {{ scene.description }}
+                        </p>
 
-            <a [routerLink]="['/scenos', scene.slug]" routerLinkActive="active">
-                <button type="button" class="btn btn-primary btn-lg">Žiūrėti</button>
-            </a>
+                    </div>
+                    <a [routerLink]="['/scenos', scene.slug]" routerLinkActive="active">
+                        <button type="button" class="btn btn-primary btn-lg">Žiūrėti</button>
+                    </a>
+                </div>
+            </div>
+            <img class="vilnius-logo-banner"
+                src="data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1ODYuNDIgMjM1LjAxIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjtmaWxsLXJ1bGU6ZXZlbm9kZDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPlZJTE5JVVNfS0FSVU5BX1dISVRFX1JHQjwvdGl0bGU+PHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjQyMi4zIDY5LjUyIDM4Mi45OCA2MC41OCAzODAuNDggMC4wNiAyOTguMzYgMC4wMSAyOTguMzYgMCAyOTMuMjEgMCAyODguMDUgMCAyODguMDUgMC4wMSAyMDUuOTQgMC4wNiAyMDMuNDMgNjAuNTggMTY0LjExIDY5LjUyIDE1MS4xNSA5LjQ2IDIzLjUgNTIuNTMgMCAyMzUuMDEgNzIuMDYgMjM1LjAxIDg4LjM1IDEwMC4xMyAxMTkuNTkgOTAuOSAxMzEuOTggMTQ2LjYxIDI1NC40NCAxMTkuNjggMjU0Ljc3IDY0LjA2IDI5My4yMSA2My45OCAzMzEuNjUgNjQuMDYgMzMxLjk4IDExOS42OCA0NTQuNDQgMTQ2LjYxIDQ2Ni44MyA5MC45IDQ5OC4wNiAxMDAuMTMgNTE0LjM2IDIzNS4wMSA1ODYuNDIgMjM1LjAxIDU2Mi45MiA1Mi41MyA0MzUuMjYgOS40NiA0MjIuMyA2OS41MiIvPjwvc3ZnPgo="
+                alt="banner">
         </div>
     </ng-container>
 </div>
+
+<ng-template #ScenesMobile>
+    <div class="scenes--mobile">
+        <swiper [config]="config">
+            <div class="swiper-wrapper">
+                <ng-container *ngFor="let scene of scenes$ | async">
+                    <div class="swiper-slide">
+                        <div class="swiper__slide__wrapper">
+                            <div class="swiper__slide__content">
+                                <div class="swiper__text">
+                                    <h2>{{ scene.title }}</h2>
+                                    <p>
+                                        {{ scene.description }}
+                                    </p>
+                                </div>
+                                <a [routerLink]="['/scenos', scene.slug]" routerLinkActive="active">
+                                    <button type="button" class="btn btn-primary btn-lg">Žiūrėti</button>
+                                </a>
+                            </div>
+                            <img class="vilnius-logo-banner"
+                                src="data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1ODYuNDIgMjM1LjAxIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjtmaWxsLXJ1bGU6ZXZlbm9kZDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPlZJTE5JVVNfS0FSVU5BX1dISVRFX1JHQjwvdGl0bGU+PHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjQyMi4zIDY5LjUyIDM4Mi45OCA2MC41OCAzODAuNDggMC4wNiAyOTguMzYgMC4wMSAyOTguMzYgMCAyOTMuMjEgMCAyODguMDUgMCAyODguMDUgMC4wMSAyMDUuOTQgMC4wNiAyMDMuNDMgNjAuNTggMTY0LjExIDY5LjUyIDE1MS4xNSA5LjQ2IDIzLjUgNTIuNTMgMCAyMzUuMDEgNzIuMDYgMjM1LjAxIDg4LjM1IDEwMC4xMyAxMTkuNTkgOTAuOSAxMzEuOTggMTQ2LjYxIDI1NC40NCAxMTkuNjggMjU0Ljc3IDY0LjA2IDI5My4yMSA2My45OCAzMzEuNjUgNjQuMDYgMzMxLjk4IDExOS42OCA0NTQuNDQgMTQ2LjYxIDQ2Ni44MyA5MC45IDQ5OC4wNiAxMDAuMTMgNTE0LjM2IDIzNS4wMSA1ODYuNDIgMjM1LjAxIDU2Mi45MiA1Mi41MyA0MzUuMjYgOS40NiA0MjIuMyA2OS41MiIvPjwvc3ZnPgo="
+                                alt="banner">
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="swiper-pagination"></div>
+        </swiper>
+    </div>
+</ng-template>
+
+<v3d-footer></v3d-footer>

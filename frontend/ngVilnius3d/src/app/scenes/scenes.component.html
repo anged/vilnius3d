@@ -8,7 +8,7 @@
 </nav>
 <div class="sidebar--left" [@sidebarAnimation]="isSidebarActive ? 'open' : 'close'">
     <v3d-header></v3d-header>
-    <v3d-scenes-list (changeScene)="activeScene($event)"></v3d-scenes-list>
+    <v3d-scenes-list (changeScene)="activeScene($event)" [scenes$]="scenes$"></v3d-scenes-list>
 </div>
 
 <div class="scene__container" >

@@ -12,7 +12,6 @@ export class EmailValidatorDirective implements Validator {
   constructor() { }
 
   validate(control: FormControl): ValidationErrors {
-    console.log('Form Control', control.value,this.emailProvider);
     return CustomEmailValidator(this.emailProvider)(control);
   }
 

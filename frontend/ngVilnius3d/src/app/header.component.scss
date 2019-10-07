@@ -20,9 +20,9 @@ h1 {
     }
 
     &__img {
-        margin-top: 10px;
         padding: 20px 10px 10px 20px;
         width: 90px;
+        margin-top: 3px;
         margin-left: 20px;
 
         @include media-breakpoint-up(sm) {

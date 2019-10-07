@@ -4,7 +4,6 @@
     &__main {
         border-radius: $border-radius;
         overflow: hidden;
-        margin: 10px;
     }
 
     &__main__bg {
@@ -15,13 +14,14 @@
 
     &__main__content {
         position: relative;
+        padding: 10px;
         z-index: 1;
     }
 
     &--active {
         position: absolute;
-        right: 10px;
-        top: 22px;
+        left: 0;
+        top: 16px;
         z-index: 2;
     }
 
@@ -29,15 +29,16 @@
 
 .badge-primary {
     display: block;
-    font-size: 60%;
-    height: 8px;
-    width: 8px;
-    border-radius: 8px;
+    height: 20px;
+    border-radius: 0;
+    width: 3px;
+    padding: 0;
 }
 
 .accordion__main__content__image {
     position: relative;
     height: 100px;
+    background-color: rgba($dark, 0.1);
     overflow: hidden;
 
     img {
@@ -52,13 +53,13 @@
     button {
         position: relative;
         font-size: 16px;
-        font-weight: 500;
         background: none;
         z-index: 1;
     }
 
     .btn-primary {
         color: $dark;
+        width: 100%;
     }
 
 }
@@ -67,4 +68,7 @@ p {
     margin-top: 1rem;
     margin-bottom: 1rem;
     font-size: 14px;
+    line-height: 1.6;
+    letter-spacing: -1px;
+    opacity: 0.8;
 }

@@ -32,7 +32,8 @@ export class AuthComponent implements OnInit, OnDestroy {
       // otherwise component gets destroyed
       this.isAuthenticating = false;
       this.cdr.detectChanges();
-    }); 
+    });
+     
   }
 
   login() {

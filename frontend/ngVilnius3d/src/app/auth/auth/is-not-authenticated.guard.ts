@@ -26,7 +26,6 @@ export class IsNotAuthenticatedGuard implements CanActivate {
       map(isAuth => {
         const token = this.jwt.getToken();
         const isExpired = this.jwts.isTokenExpired(token);
-        console.log('guard', isAuth)
         if (isAuth && !isExpired) {
           this.router.navigate(['/admin/dashboard']);
         }

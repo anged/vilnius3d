@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ScenesService } from 'src/app/services/scenes.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Scene } from '../../models/scene.model';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, map } from 'rxjs/operators';
 import { ScenesRoutingService } from '../scenes-routing.service';
 
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -11,9 +11,13 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 @Component({
   selector: 'v3d-scene',
   templateUrl: './scene.component.html',
-  styleUrls: ['./scene.component.scss'],
+  styleUrls: ['./scene.component.scss']
 })
 export class SceneComponent implements OnInit, OnDestroy {
+  // caching scenes from list because we only want to get single scene from the current list scenes
+  // However when we routing to to other components we sending new get request
+  // because new scene can be added or updated
+  private scenesCache$: Observable<Scene[]>;
   scene$: Observable<Scene>;
   firstLoad = false; 
   currentSlug: string;
@@ -36,12 +40,26 @@ export class SceneComponent implements OnInit, OnDestroy {
 
         this.scenesRoutingService.setCurrentSlug(params.get('slug'))
       }),
-      switchMap((params: ParamMap) => this.scenesService.getSceneBySlug(params.get('slug'))),
+      // not using getSceneBySlug
+      // switchMap((params: ParamMap) => this.scenesService.getSceneBySlug(params.get('slug'))),
+      switchMap((params: ParamMap) => {
+        if (this.scenesCache$) {
+          return this.getScene(this.scenesCache$, params);
+        }
+        this.scenesCache$ = this.scenesService.getScenes()
+        return this.getScene(this.scenesCache$, params);
+      }),
       tap((scene: Scene) => {
         if (!scene) this.router.navigateByUrl('/')
       })
     );
 
+  }
+
+  getScene(scenes$: Observable<Scene[]>, params: ParamMap):  Observable<Scene> {
+    return scenes$.pipe(
+      map((scenes: Scene[]) => scenes.filter(scene => scene.slug === params.get('slug'))[0])
+    );
   }
 
   resizeIframe(frame: HTMLIFrameElement) {

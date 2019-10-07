@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
+import { Router } from '@angular/router';
 
 import { UsersService } from './users.service';
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { User } from '../models/user.model';
 import { ApiService } from './api.service';
 import { environment } from '../../environments/environment';
 import { Message } from '../models/message.model';
-import { Router } from '@angular/router';
 
 describe('UsersService', () => {
   let service: UsersService;

@@ -17,7 +17,7 @@ export class ScenesService {
 
   getScenes(): Observable<Scene[]> {
     return this.apiService.getExpress('/scenes').pipe(
-      shareReplay(1)
+      shareReplay({ refCount: true, bufferSize: 1 })
     );
   }
 
@@ -29,6 +29,7 @@ export class ScenesService {
 
   getSceneBySlug(slug: string): Observable<Scene> {
     return this.getScenes().pipe(
+      tap((a) => {console.log('scene',a)}),
       map(scenes => scenes.filter(sceneSingle => sceneSingle.slug === slug)[0]),
     )
   }
@@ -38,14 +39,13 @@ export class ScenesService {
     if (update) {
       return this.apiService.putExpress(`/scene${slug}`, UtilsAdmin.convertToFormData(scene));
     } else {
-      console.log('IMG',  UtilsAdmin.convertToFormData(scene));
       return this.apiService.postExpress('/scene', UtilsAdmin.convertToFormData(scene));
     }
+
   }
 
   deleteScene(id: string): Observable<Scene> {
     return this.apiService.deleteExpress(`/scene${id}`);
-
   }
   
 }

@@ -19,7 +19,6 @@ export class AppComponent {
     // Share route event for initiating breadcrumb in child routes
     this.router.events.pipe(
       filter(event => event instanceof RoutesRecognized),
-      tap((route) => console.log('ROUTE', route)),
       shareReplay(1)
     )
   }

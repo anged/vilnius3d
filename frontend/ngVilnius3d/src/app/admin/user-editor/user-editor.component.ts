@@ -1,7 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Observable } from 'rxjs';
+
 import { User } from '../../models/user.model';
 import { UsersService } from '../../services/users.service';
+
 import { ToastrService } from 'ngx-toastr';
 
 interface IUserAdded {
@@ -23,7 +24,6 @@ export class UserEditorComponent implements OnInit {
   ngOnInit() { }
 
   onSubmit(): void {
-    console.log(this.email);
     this.usersService.createUser(this.email).subscribe((data: User | IUserAdded) => {
       console.log('data', data, (data as IUserAdded).success);
       // TODO pipe and add messages:

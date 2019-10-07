@@ -1,0 +1,22 @@
+@import '~src/styles/grid';
+
+:host {
+    width: 100%;
+    display: block;
+    position: fixed;
+    left: 30px;
+    bottom: 0;
+    color: #e5eaf0;
+    opacity: 0.7;
+    padding: 0 10px;
+    z-index: 2;
+
+    @include media-breakpoint-up(sm) {
+        left: 20px;
+    }
+}
+
+p {
+    font-weight: 600;
+    font-size: 13px;
+}

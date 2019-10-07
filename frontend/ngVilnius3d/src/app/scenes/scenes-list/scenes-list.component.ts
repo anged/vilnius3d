@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
 import { Scene } from '../../models/scene.model';
 import { ScenesService } from '../../services/scenes.service';
 import { Observable } from 'rxjs';
+
+// using directly in template
 import { ScenesRoutingService } from '../scenes-routing.service';
 import { environment } from '../../../environments/environment';
 
@@ -12,15 +14,14 @@ import { environment } from '../../../environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScenesListComponent implements OnInit {
+  @Input('scenes$') scenes$: Observable<Scene[]>;
   @Output() changeScene = new EventEmitter<string>();
-  scenes$: Observable<Scene[]>;
   imgPath = environment.urlExpress;
   defaultImage = '/assets/img/default.jpg'
 
   constructor(private scenesService: ScenesService, private scenesRoutingService: ScenesRoutingService) { }
 
   ngOnInit() {
-    this.scenes$ = this.scenesService.getScenes();
   }
 
   setBg(img: string): string {

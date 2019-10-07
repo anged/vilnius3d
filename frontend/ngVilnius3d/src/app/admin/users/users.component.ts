@@ -23,7 +23,7 @@ interface IUserDeleted {
 export class UsersComponent implements OnInit {
   imgPath = environment.urlExpress;
   users$: Observable<User[]>;
-  //Not first time authenticated users
+  // Not first time authenticated users
   usersNotAuthed$: Observable<User[]>;
   iconRemove = trash16;
   iconUpload = arrowUpDown16;
@@ -36,7 +36,6 @@ export class UsersComponent implements OnInit {
 
   getUsers() {
     this.users$ = this.usersService.getUsers().pipe(
-      tap(users => console.log('Users', users)),
       map((users: User[]) => users.filter((user: User) => user.name && user.uid)),
       catchError(err => {
         // TODO change logic, as current sollution redirect front end as well, 

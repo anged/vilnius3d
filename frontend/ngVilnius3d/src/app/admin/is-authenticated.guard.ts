@@ -13,7 +13,6 @@ export class IsAuthenticatedGuard implements CanActivate {
   jwts: JwtHelperService;
   constructor(private userService: UserService, private router: Router, private jwt: JwtService) {
     this.jwts = new JwtHelperService();
-    console.log('Generate JwtHelperService INSTANCE')
    }
 
   canActivate(
@@ -24,7 +23,7 @@ export class IsAuthenticatedGuard implements CanActivate {
     const isExpired = this.jwts.isTokenExpired(token);
     return this.userService.isAuthenticated$.pipe(
       tap(a => {
-        console.log(a)
+        console.log(a, route, state)
         if (!a || isExpired) {
           this.router.navigate(['/login']);
         }
@@ -34,21 +33,5 @@ export class IsAuthenticatedGuard implements CanActivate {
       take(1)
       );
   }
-
-  // canActivate(
-  //   route: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot
-  // ): boolean {
-  //   const token = this.jwt.getToken();
-     
-  //   if (token && !this.jwts.isTokenExpired(token)) {
-  //     console.log('Token valid', this.jwts.isTokenExpired(token))
-  //     return true;
-  //   }
-    
-  //   console.log('Token expired', this.jwts.isTokenExpired(token))
-  //   this.router.navigate(['/login'])
-  //   return false;
-  // }
 
 }

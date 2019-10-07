@@ -1,12 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
-import { BehaviorSubject, ReplaySubject, of, throwError, Observable, Subject } from 'rxjs';
-import { User } from '../models/user.model';
+import { BehaviorSubject, ReplaySubject, throwError, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { subscribeOn, distinctUntilChanged, catchError } from 'rxjs/operators';
+import { distinctUntilChanged, catchError } from 'rxjs/operators';
+
+import { User } from '../models/user.model';
 import { JwtService } from './jwt.service';
 import { ApiService } from './api.service';
 import { environment } from '../../environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 // declare global google api const
 declare const gapi: any;
@@ -15,9 +17,9 @@ declare const gapi: any;
   providedIn: 'root'
 })
 export class UserService {
+  private jwts: JwtHelperService;
   private oAuth2Instance: any;
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
-  // private isAuthenticatedSubject = new BehaviorSubject(false);
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
   private isRejectedUserSubject = new Subject<boolean>();
@@ -33,13 +35,13 @@ export class UserService {
     private jwtService: JwtService,
     private apiService: ApiService
     ) {
-    // this.isAuthenticatedSubject.next(false);
     gapi.load('auth2', this.initClient);
+    this.jwts = new JwtHelperService();
   }
 
   initClient() {
     gapi.auth2.init({
-      client_id: '987096005741-rh4dh76plqme1litg8d82etk5elu3d01.apps.googleusercontent.com'
+      client_id: environment.clid
     });
   }
 
@@ -47,7 +49,6 @@ export class UserService {
     this.oAuth2Instance = gapi.auth2.getAuthInstance();
     this.oAuth2Instance.signIn().then((user)=> {
       this.loginAuth(user);
-      console.log('Success', user)
     });
   }
 
@@ -61,15 +62,12 @@ export class UserService {
 
     this.http.post<any>(`${environment.urlExpress}/auth`, user.Zi, options).pipe(
         catchError((err) =>  {
-          console.warn('ER', err)
           this.isRejectedUserSubject.next(true)
           return throwError(err);
         })
       )
       .subscribe((res) => {
-        console.log('Express res', res);
         const token = res.token;
-        console.log('Token', token);
         this.jwtService.storeToken(token);
         this.isAuthenticatedSubject.next(true);
         this.currentUserSubject.next(res);
@@ -88,7 +86,6 @@ export class UserService {
       oAuth2Instance.signOut().then(() => {
         user.disconnect();
         this.ngZone.run(() => {
-          console.log('Log out')
           this.router.navigate(['/login']);
         })
       });
@@ -99,11 +96,11 @@ export class UserService {
   }
 
   populate() {
-    if (this.jwtService.getToken()) {
+    const token = this.jwtService.getToken();
+    if (token && !this.jwts.isTokenExpired(token)) {
       this.apiService.getExpress('/auth/user')
       .subscribe(
         res => {
-          console.log(res)
           this.setCurrentAuth(res)
         },
         err => this.destroyCurrentAuth()
@@ -115,13 +112,11 @@ export class UserService {
   }
 
   setCurrentAuth(user) {
-    console.log('User authenticated', user)
     this.currentUserSubject.next(user);
     this.isAuthenticatedSubject.next(true);
   }
 
   destroyCurrentAuth() {
-    console.error('destroyCurrentAuth')
     this.jwtService.removeToken();
     this.currentUserSubject.next({} as User);
     this.isAuthenticatedSubject.next(false);

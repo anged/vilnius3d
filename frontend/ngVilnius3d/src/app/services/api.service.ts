@@ -16,15 +16,14 @@ export class ApiService {
   }
 
   handleError(error:  any) {
-    console.error(error);
    return throwError('POST failed', error)  
   }
 
-  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http.get(`${environment.url}${path}`, { params }).pipe(
-      catchError(this.formatErrors)
-    )
-  }
+  // get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+  //   return this.http.get(`${environment.url}${path}`, { params }).pipe(
+  //     catchError(this.formatErrors)
+  //   )
+  // }
 
   getExpress(path: string, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http.get(`${environment.urlExpress}${path}`, { params }).pipe(
@@ -33,7 +32,6 @@ export class ApiService {
   }
 
   postExpress(path: string, body: any): Observable<any> {
-    console.log(body, path)
     return this.http.post(`${environment.urlExpress}${path}`, body).pipe(
       catchError(this.handleError)
     );

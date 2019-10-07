@@ -7,7 +7,7 @@
             <accordion-group [heading]="scene.title" [isOpen]="scenesRoutingService.slug === scene.slug">
                 <div class="accordion__main__content">
                     <div class="accordion__main__content__image">
-                        <img  [src]="setBg(scene.img)" [alt]="scene.title">
+                        <img [src]="setBg(scene.img)" [alt]="scene.title">
                     </div>
                     <p>
                         {{ scene.description }}

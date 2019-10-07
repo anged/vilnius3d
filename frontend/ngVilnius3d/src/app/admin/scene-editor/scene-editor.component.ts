@@ -1,17 +1,20 @@
 import { Component, OnInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { switchMap, tap, mergeMapTo, mergeMap, catchError } from 'rxjs/operators';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
+
+import { switchMap, catchError } from 'rxjs/operators';
+import { takeUntil } from "rxjs/operators";
+import { Subject, of } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { exclamationMarkCircle16 } from "@esri/calcite-ui-icons";
+import { fileValidator } from './fileValidator';
+
 import { Scene } from '../../models/scene.model';
 import { ScenesService } from '../../services/scenes.service';
-import { FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { BreadcrumbService } from 'angular-crumbs';
-import { fileValidator } from './fileValidator';
-import { exclamationMarkCircle16 } from "@esri/calcite-ui-icons";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { environment } from '../../../environments/environment';
-import { takeUntil } from "rxjs/operators";
-import { Subject, throwError, of } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'v3d-scene-editor',
@@ -48,15 +51,6 @@ export class SceneEditorComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log('ROUTE', this.router);
-    // TODO block UI when submiting  form
-    console.log('FORM', this.sceneForm);
-
-
-    this.route.url.pipe(
-      tap(params => console.log('ROUTE', params))
-    ).subscribe()
-
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.scenesService.getScene(params.get('id')))
     ).subscribe((scene: Scene) => {
@@ -66,8 +60,6 @@ export class SceneEditorComponent implements OnInit {
       this.id = scene ? `/${scene.id}` : '';
 
       // check if scene exist and patch scene to form  for  existing components
-
-      console.log('scene', this.id, scene)
       if (scene) {
         this.sceneForm.patchValue(scene);
 
@@ -95,14 +87,11 @@ export class SceneEditorComponent implements OnInit {
   }
 
   onFileChange(event) {
-    console.log('F event', event)
     const file = event.target.files[0];
     this.sceneForm.controls['imgFile'].setValue(file ? file : null);
-    console.log("FORM", this.sceneForm.get('imgFile'), this.sceneForm)
   }
 
   onSubmit() {
-    console.log('Form Value', this.sceneForm.touched, this.sceneForm.valid);
     this.isFormSubmitting = true;
     this.scenesService.saveScene(this.sceneForm.value, this.shouldUpdate, this.id).pipe(
       catchError((err) => {
@@ -112,8 +101,6 @@ export class SceneEditorComponent implements OnInit {
       takeUntil(this.destroy$)
     )
     .subscribe((data: any) => {
-      console.log('POST data', data);
-
       this.isFormSubmitting = false;
 
       // TODO patch succussfully updated scene and update imageUrl
@@ -123,7 +110,6 @@ export class SceneEditorComponent implements OnInit {
         this.toastS.success('Scena sėkmingai atnaujinta')
 
         this.sceneForm.controls['imgFile'].reset();
-        console.log(this.sceneForm.controls['imgFile'].value)
         this.sceneForm.controls['imgFile'].setValue(null);
         this.shouldUpdate = true;
         this.sceneForm.patchValue(scene);
@@ -133,9 +119,6 @@ export class SceneEditorComponent implements OnInit {
         this.sceneForm.reset();
         this.toastS.success('Scena sėkmingai įkelta')
       }
-      // else {
-      //   this.sceneForm.reset();
-      // }
 
         // TODO use renderer
         this.fileInput.nativeElement.value = null

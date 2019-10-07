@@ -23,7 +23,6 @@ export class IsAuthenticatedGuard implements CanActivate {
     const isExpired = this.jwts.isTokenExpired(token);
     return this.userService.isAuthenticated$.pipe(
       tap(a => {
-        console.log(a, route, state)
         if (!a || isExpired) {
           this.router.navigate(['/login']);
         }

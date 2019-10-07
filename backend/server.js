@@ -41,12 +41,10 @@ app.use('/api/uploads/users', express.static('uploads/users'));
 
 // Parses the text as JSON and exposes the resulting object on req.body
 app.use(bodyParser.json({
-    // limit: '50mb', extended: true
 }));
 
 // Parses the text as URL encoded data. Parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({
-    // limit: '50mb',
     extended: true
 }));
 
@@ -115,8 +113,6 @@ app.route('/api/auth/user')
 
 // TODO use router
 
-// ------------------------- //
-
 // Get users
 app.route('/api/users')
     .get(authenticate, getDBUsers)
@@ -124,7 +120,6 @@ app.route('/api/users')
 
 // Post user
 app.route('/api/user')
-    // .post(authenticate, saveUser);
     .post(authenticate, createDBUser);
 
 // Delete user
@@ -135,10 +130,9 @@ app.route('/api/user/:id')
 
 // GET scenes
 app.route('/api/scenes')
-    // .get(authenticate, getScenes);
     .get(getScenes);
 
-    // Post scene
+// Post scene
 app.route('/api/scene')
     .post(authenticate, saveScene);
 
@@ -149,8 +143,13 @@ app.route('/api/scene/:id')
 
 // get all routes in prod, unless its api route
 app.route('*')
-    .get((req,res) => {
-        res.sendFile(path.join(__dirname + '/../index.html'));
+    .get((req, res) => {
+        if (isDev) {
+            res.json({});
+
+        } else {
+            res.sendFile(path.join(__dirname + '/../index.html'));
+        }
     });
 
 app.listen(PORT, () => {
@@ -167,6 +166,5 @@ app.listen(PORT, () => {
         fs.mkdirSync(uploadDir + '/users');
     }
     
-    console.log(uploadDir)
     console.log(clrs.green(`App is running on port ${PORT}`));
 });

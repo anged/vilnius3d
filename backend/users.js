@@ -41,7 +41,6 @@ const getDBUser = async (profile) => {
     await pool;
 
     try {
-        console.log('ASYNC');
         let result = await pool.request().query`select * from VP3D.VILNIUS3D_USERS where email = ${profile.emails[0].value} `;
 
         // As we're registering  user only by email,
@@ -81,7 +80,6 @@ const deleteDBUser = async (req, res, next) => {
         // sAdmin user can not be deleted
         const result = await pool.request().query`delete from VP3D.VILNIUS3D_USERS where id = ${req.params.id} and role <> 'sAdmin'`;
         console.log(clrs.green(result))
-        // TODO implement delete response
         res.status(200).send({ message: 'User deleted', success: true });
     } catch (err) {
         console.log(err)
@@ -117,12 +115,10 @@ const createDBUser = async (req, res, next) => {
                         'admin'
                         )
                 `;
-                console.log('U', result);
                 res.status(200).send({ message: 'User created', success: true });
             }
 
         } catch (err) {
-            console.log(err);
             res.status(400).send(err);
         }
 };

@@ -188,3 +188,13 @@ h1 {
 .vilnius-block .block-ui-wrapper {
   background: rgba(36, 43, 49, 0.8) !important;
 }
+
+.block-ui-wrapper.block-ui-wrapper--element {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+}

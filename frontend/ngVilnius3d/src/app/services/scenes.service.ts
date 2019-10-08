@@ -12,13 +12,26 @@ import { UtilsAdmin } from '../admin/utils-admin';
   providedIn: 'root'
 })
 export class ScenesService {
-
+  private frontEndScenes$: Observable<Scene[]>;
   constructor(private apiService: ApiService) { }
 
   getScenes(): Observable<Scene[]> {
     return this.apiService.getExpress('/scenes').pipe(
-      shareReplay({ refCount: true, bufferSize: 1 })
+      shareReplay({ refCount: false, bufferSize: 1 })
     );
+  }
+
+  // caching only in public app
+  getPublicScenes(): Observable<Scene[]> {
+    if (this.frontEndScenes$) {
+      return this.frontEndScenes$;
+    }
+
+    this.frontEndScenes$ = this.apiService.getExpress('/scenes').pipe(
+      shareReplay({ refCount: false, bufferSize: 1 })
+    );
+
+    return this.frontEndScenes$;
   }
 
   getScene(id: string): Observable<Scene> {
@@ -29,12 +42,12 @@ export class ScenesService {
 
   getSceneBySlug(slug: string): Observable<Scene> {
     return this.getScenes().pipe(
-      tap((a) => {console.log('scene',a)}),
+      tap((a) => { console.log('scene', a) }),
       map(scenes => scenes.filter(sceneSingle => sceneSingle.slug === slug)[0]),
     )
   }
 
-  saveScene(scene: Scene, update: boolean = false, slug=''): Observable<Scene> {
+  saveScene(scene: Scene, update: boolean = false, slug = ''): Observable<Scene> {
     // check if scene exists
     if (update) {
       return this.apiService.putExpress(`/scene${slug}`, UtilsAdmin.convertToFormData(scene));
@@ -47,5 +60,5 @@ export class ScenesService {
   deleteScene(id: string): Observable<Scene> {
     return this.apiService.deleteExpress(`/scene${id}`);
   }
-  
+
 }

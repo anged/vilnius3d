@@ -45,7 +45,7 @@ export class HomeScenesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.scenes$ = this.scenesService.getScenes();
+    this.scenes$ = this.scenesService.getPublicScenes();
   }
 
   setBg(img: string): string {

@@ -33,7 +33,7 @@ export class ScenesComponent implements OnInit {
   constructor(private scenesService: ScenesService) { }
 
   ngOnInit() {
-    this.scenes$ = this.scenesService.getScenes();
+    this.scenes$ = this.scenesService.getPublicScenes();
   }
 
   toggleSidebar() {

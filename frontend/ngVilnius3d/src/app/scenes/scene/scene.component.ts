@@ -46,7 +46,7 @@ export class SceneComponent implements OnInit, OnDestroy {
         if (this.scenesCache$) {
           return this.getScene(this.scenesCache$, params);
         }
-        this.scenesCache$ = this.scenesService.getScenes()
+        this.scenesCache$ = this.scenesService.getPublicScenes()
         return this.getScene(this.scenesCache$, params);
       }),
       tap((scene: Scene) => {

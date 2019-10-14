@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 3000",
+    "start": "ng serve --port=3000",
     "start:json": "concurrently --kill-others \"json-server json-server/db.json --port 3100 --watch\" \"ng serve --port 3000\"",
     "build": "ng build",
     "test": "ng test",

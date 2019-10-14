@@ -44,13 +44,28 @@ const addFile = (file, req, res) => {
 
         jimp.read((`${fullPath}`), (err, image) => {
             if (err) throw err;
+            const width = image.bitmap.width;
+            const height =  image.bitmap.height;
 
-            image
-                // .resize(600, jimp.AUTO) // resize
-                // .quality(90) // set JPEG quality
+            if (width >= 600 && height > 600 ) {
+                console.log(clrs.bgBlue(width, height));
+                if (width > height) {
+                    image
+                    .crop(0, 0, height, height)
+                    .resize(600, 600) // resize
+                    .write(`${fullPath}`); // save
+                } else {
+                    image
+                    .crop(0, 0, width, width)
+                    .resize(600, 600) // resize
+                    .write(`${fullPath}`); // save
+                }
+
+            } else {
+                image
                 .crop(0, 0, 600, 600)
-                // .greyscale()    
                 .write(`${fullPath}`); // save
+            }
 
             if (pool) {
                 getScene(req, res)

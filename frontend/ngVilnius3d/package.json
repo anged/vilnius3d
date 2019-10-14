@@ -30,6 +30,8 @@
     "ng-block-ui": "^2.1.7",
     "ng-lazyload-image": "^6.1.0",
     "ngx-bootstrap": "^5.1.1",
+    "ngx-cookie-service": "^2.2.0",
+    "ngx-device-detector": "^1.3.11",
     "ngx-toastr": "^10.2.0",
     "ngx-useful-swiper": "^8.0.1",
     "rxjs": "~6.5.2",

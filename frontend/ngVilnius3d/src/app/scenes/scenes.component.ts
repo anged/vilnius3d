@@ -4,6 +4,7 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
 import { Observable } from 'rxjs';
 import { Scene } from '../models/scene.model';
 import { ScenesService } from '../services/scenes.service';
+import { CookieVilniusService } from '../services/cookie-vilnius.service';
 
 @Component({
   selector: 'v3d-scenes',
@@ -30,10 +31,13 @@ export class ScenesComponent implements OnInit {
   scenes$: Observable<Scene[]>;
   isSidebarActive = false;
   currentActiveScene: string;
-  constructor(private scenesService: ScenesService) { }
+  constructor(
+    private cookieVilniusService: CookieVilniusService,
+    private scenesService: ScenesService) { }
 
   ngOnInit() {
     this.scenes$ = this.scenesService.getPublicScenes();
+    this.cookieVilniusService.checkCookie();
   }
 
   toggleSidebar() {

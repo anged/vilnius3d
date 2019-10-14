@@ -13,9 +13,12 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { AngularResizedEventModule } from 'angular-resize-event';
+import { DeviceDetectorModule } from 'ngx-device-detector';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [ HeaderComponent, ScenesListComponent, ScenesComponent, SceneComponent, HomeScenesComponent],
+  providers: [ CookieService ],
   imports: [
     ScenesRoutingModule,
     BrowserAnimationsModule,
@@ -23,7 +26,8 @@ import { AngularResizedEventModule } from 'angular-resize-event';
     SharedModule,
     LazyLoadImageModule,
     NgxUsefulSwiperModule,
-    AngularResizedEventModule
+    AngularResizedEventModule,
+    DeviceDetectorModule.forRoot()
   ]
 })
 export class ScenesModule { }

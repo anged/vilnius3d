@@ -1,10 +1,15 @@
 <div *blockUI="'iframe__section'">
 
     <ng-container *ngIf="(scene$ | async) as scene">
-        <ng-container *ngIf="cookieVilniusService.cookieMobile">
+        <ng-container *ngIf="isMobile && cookieVilniusService.cookieMobile">
             <iframe name="frame" id="frame" [src]="scene.scene | safeUrl" frameborder="0" scrolling="no"
                 (load)="resizeIframe($event)"></iframe>
         </ng-container>
+        <ng-container *ngIf="!isMobile">
+            <iframe name="frame" id="frame" [src]="scene.scene | safeUrl" frameborder="0" scrolling="no"
+                (load)="resizeIframe($event)"></iframe>
+        </ng-container>
+        
     </ng-container>
 
 </div>

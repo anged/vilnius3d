@@ -7,7 +7,7 @@ import { IsNotAuthenticatedGuard } from './is-not-authenticated.guard';
 
 const routes: Routes = [
   { 
-    path: 'login', 
+    path: '', 
     component: AuthComponent,
     canActivate: [IsNotAuthenticatedGuard]
   }

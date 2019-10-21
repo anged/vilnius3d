@@ -1,5 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { trigger, state, transition, animate, style } from '@angular/animations';
 import { Observable } from 'rxjs';
 import { Scene } from '../models/scene.model';

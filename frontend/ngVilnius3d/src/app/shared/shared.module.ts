@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BlockUIModule } from 'ng-block-ui';
 import { SafeUrlPipe } from '../pipes/safe-url.pipe';
 
-// import {BreadcrumbModule} from 'xng-breadcrumb';
 import {BreadcrumbModule} from 'angular-crumbs';
 import { ToastrModule } from 'ngx-toastr';
 import { FooterComponent } from './footer.component';
+import { CookieService } from 'ngx-cookie-service';
 
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AlertModule } from 'ngx-bootstrap/alert';
 @NgModule({
   declarations: [
     SafeUrlPipe,
@@ -21,9 +23,12 @@ import { FooterComponent } from './footer.component';
     BlockUIModule.forRoot({
       delayStop: 3000
     }),
-    BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
+    AlertModule.forRoot()
   ],
-  exports: [CommonModule, BlockUIModule, SafeUrlPipe, BreadcrumbModule, BrowserAnimationsModule, ToastrModule, FooterComponent]
+  providers: [ CookieService ],
+  exports: [CommonModule, BlockUIModule, SafeUrlPipe, BreadcrumbModule, FooterComponent]
 })
 export class SharedModule { }

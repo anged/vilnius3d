@@ -11,11 +11,11 @@ import { UserEditorComponent } from './user-editor/user-editor.component';
 
 const routes: Routes = [
   {
-    path: 'admin',
+    path: '',
     pathMatch: 'full',
     redirectTo: '/admin/dashboard/scenes'
   }, {
-    path: 'admin',
+    path: '',
     component: AdministrationComponent,
     children: [
       {
@@ -66,11 +66,7 @@ const routes: Routes = [
             data: { breadcrumb: 'Vartotojo profilis' }
           }
         ]
-      }, 
-      // {
-      //   path: '**',
-      //   redirectTo: ''
-      // }
+      }
     ]
   }
 ];

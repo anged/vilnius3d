@@ -5,13 +5,13 @@ import { BlockUIModule } from 'ng-block-ui';
 import { SafeUrlPipe } from '../pipes/safe-url.pipe';
 
 import {BreadcrumbModule} from 'angular-crumbs';
-import { ToastrModule } from 'ngx-toastr';
 import { FooterComponent } from './footer.component';
 import { CookieService } from 'ngx-cookie-service';
 
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     SafeUrlPipe,
@@ -24,7 +24,6 @@ import { AlertModule } from 'ngx-bootstrap/alert';
       delayStop: 3000
     }),
     ToastrModule.forRoot(),
-    BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     AlertModule.forRoot()
   ],

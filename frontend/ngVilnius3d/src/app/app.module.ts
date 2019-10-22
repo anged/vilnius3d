@@ -5,9 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { SharedModule } from './shared/shared.module';
 import { Vilnius3dHttpInterceptor } from './interceptors/vilnius3d-http-interceptor.interceptor';
+
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { Vilnius3dHttpInterceptor } from './interceptors/vilnius3d-http-intercep
     SharedModule,
   ],
   providers: [
+    CookieService,
     { provide: HTTP_INTERCEPTORS, useClass: Vilnius3dHttpInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

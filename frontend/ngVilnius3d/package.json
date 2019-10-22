@@ -4,7 +4,6 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=3000",
-    "start:json": "concurrently --kill-others \"json-server json-server/db.json --port 3100 --watch\" \"ng serve --port 3000\"",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -52,7 +51,6 @@
     "concurrently": "^4.1.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
-    "json-server": "^0.15.0",
     "karma": "~3.0.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",

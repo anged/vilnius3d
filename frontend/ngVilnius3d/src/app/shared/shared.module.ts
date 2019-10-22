@@ -4,9 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BlockUIModule } from 'ng-block-ui';
 import { SafeUrlPipe } from '../pipes/safe-url.pipe';
 
-import {BreadcrumbModule} from 'angular-crumbs';
 import { FooterComponent } from './footer.component';
-import { CookieService } from 'ngx-cookie-service';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
@@ -19,7 +17,6 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   imports: [
     CommonModule,
-    BreadcrumbModule,
     BlockUIModule.forRoot({
       delayStop: 3000
     }),
@@ -27,7 +24,6 @@ import { ToastrModule } from 'ngx-toastr';
     ModalModule.forRoot(),
     AlertModule.forRoot()
   ],
-  providers: [ CookieService ],
-  exports: [CommonModule, BlockUIModule, SafeUrlPipe, BreadcrumbModule, FooterComponent]
+  exports: [CommonModule, BlockUIModule, SafeUrlPipe, FooterComponent]
 })
 export class SharedModule { }

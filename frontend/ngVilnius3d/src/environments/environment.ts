@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:3100',
   urlExpress: 'http://localhost:4200/api',
   clid: '987096005741-rh4dh76plqme1litg8d82etk5elu3d01.apps.googleusercontent.com'
 };

@@ -18,6 +18,7 @@ import { EmailValidatorDirective } from './user-editor/email-validator.directive
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import {BreadcrumbModule} from 'angular-crumbs';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     ReactiveFormsModule,
     AdminRoutingModule,
     BsDropdownModule.forRoot(),
+    BreadcrumbModule
   ]
 })
 export class AdminModule { }

@@ -1,6 +1,6 @@
 # Front end application
 Public page
-![screenshot](/public.png)
+![screenshot](public.png)
 
 Authorized page
 ![screenshot](authed.png)
